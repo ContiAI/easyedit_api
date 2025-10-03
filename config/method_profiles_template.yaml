@@ -1,0 +1,430 @@
+# Method Profiles Template - Dynamic Extension System
+# This file contains profiles for EasyEdit editing methods with dynamic discovery support
+# New methods can be added without modifying this file - see discovery section at bottom
+
+# Core method profiles based on EasyEdit's actual module structure
+methods:
+  # ROME (Rank-One Model Editing) - maps to easyeditor/models/rome/
+  ROME:
+    # Basic information
+    display_name: "ROME"
+    full_name: "Rank-One Model Editing"
+    category: "locate_then_edit"
+    description: "Locates and edits specific neurons using rank-one updates"
+
+    # Module mapping
+    module_path: "easyeditor.models.rome"
+    hparams_class: "ROMEHyperParams"
+    apply_function: "apply_rome_to_model"
+
+    # Execution
+    supported_scripts:
+      - "run_zsre_llama2.py"
+      - "run_knowedit_llama2.py"
+
+    # Resource requirements
+    gpu_memory: "8-16GB"
+    requires_training: false
+    supports_sequential_editing: true
+
+    # Model compatibility (based on hparams availability)
+    supported_models:
+      - "gpt2-xl"
+      - "gpt-j-6b"
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama3-8b"
+      - "mistral-7b"
+      - "baichuan-7b"
+      - "chatglm2-6b"
+      - "qwen-7b"
+
+    # Hyperparameters (from ROMEHyperParams class)
+    required_hyperparameters:
+      - "layers"
+      - "fact_token"
+      - "v_num_grad_steps"
+      - "v_lr"
+      - "v_loss_layer"
+      - "rewrite_module_tmp"
+
+    optional_hyperparameters:
+      - "clamp_norm_factor"
+      - "kl_factor"
+      - "mom2_adjustment"
+      - "context_template_length_params"
+
+    default_hyperparameters:
+      layers: [5]
+      fact_token: "subject_last"
+      v_num_grad_steps: 25
+      v_lr: 0.5
+      v_loss_layer: 31
+      v_weight_decay: 0.001
+      clamp_norm_factor: 4
+      kl_factor: 0.0625
+      mom2_adjustment: false
+
+    # Performance characteristics
+    characteristics:
+      precision: "high"
+      speed: "fast"
+      locality_preservation: "excellent"
+      generalization: "good"
+      scalability: "medium"
+
+    # Dependencies and requirements
+    dependencies: []
+    special_requirements: []
+
+  # MEMIT - maps to easyeditor/models/memit/
+  MEMIT:
+    display_name: "MEMIT"
+    full_name: "Mass Editing Memory in Transformer"
+    category: "locate_then_edit"
+    description: "Efficiently edits multiple memories simultaneously"
+
+    module_path: "easyeditor.models.memit"
+    hparams_class: "MEMITHyperParams"
+    apply_function: "apply_memit_to_model"
+
+    supported_scripts:
+      - "run_zsre_llama2.py"
+      - "run_knowedit_llama2.py"
+
+    gpu_memory: "8-16GB"
+    requires_training: false
+    supports_sequential_editing: true
+
+    supported_models:
+      - "gpt2-xl"
+      - "gpt-j-6b"
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama3-8b"
+      - "mistral-7b"
+      - "baichuan-7b"
+      - "chatglm2-6b"
+      - "qwen-7b"
+
+    required_hyperparameters:
+      - "layers"
+      - "rewrite_module_tmp"
+      - "mom2_dataset"
+
+    optional_hyperparameters:
+      - "clamp_norm_factor"
+      - "kl_factor"
+      - "context_template_length_params"
+
+    default_hyperparameters:
+      layers: [4, 5, 6, 7, 8]
+      clamp_norm_factor: 4
+      kl_factor: 0.0625
+      mom2_dataset: "wikipedia"
+      mom2_n_samples: 100000
+
+    characteristics:
+      precision: "high"
+      speed: "medium"
+      locality_preservation: "excellent"
+      generalization: "excellent"
+      scalability: "excellent"
+
+    dependencies: []
+
+  # Fine-Tuning - maps to easyeditor/models/ft/
+  FT:
+    display_name: "FT"
+    full_name: "Fine-Tuning"
+    category: "optimization_based"
+    description: "Standard fine-tuning approach for model editing"
+
+    module_path: "easyeditor.models.ft"
+    hparams_class: "FTHyperParams"
+    apply_function: "apply_ft_to_model"
+
+    supported_scripts:
+      - "run_zsre_llama2.py"
+      - "run_knowedit_llama2.py"
+
+    gpu_memory: "12-16GB"
+    requires_training: true
+    supports_sequential_editing: true
+
+    supported_models:
+      - "gpt2-xl"
+      - "gpt-j-6b"
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama3-8b"
+      - "mistral-7b"
+      - "baichuan-7b"
+      - "chatglm2-6b"
+      - "qwen-7b"
+      - "t5-3B"
+
+    required_hyperparameters:
+      - "lr"
+      - "batch_size"
+      - "num_epochs"
+
+    optional_hyperparameters:
+      - "weight_decay"
+      - "warmup_steps"
+      - "gradient_accumulation_steps"
+
+    default_hyperparameters:
+      lr: 5e-5
+      batch_size: 4
+      num_epochs: 3
+      weight_decay: 0.01
+
+    characteristics:
+      precision: "medium"
+      speed: "slow"
+      locality_preservation: "poor"
+      generalization: "medium"
+      scalability: "poor"
+
+    dependencies: []
+
+  # IKE - maps to easyeditor/models/ike/
+  IKE:
+    display_name: "IKE"
+    full_name: "In-Context Knowledge Editing"
+    category: "memory_based"
+    description: "In-context knowledge editing using retrieved examples"
+
+    module_path: "easyeditor.models.ike"
+    hparams_class: "IKEHyperParams"
+    apply_function: "apply_ike_to_model"
+
+    supported_scripts:
+      - "run_zsre_llama2.py"
+      - "run_knowedit_llama2.py"
+
+    gpu_memory: "8-12GB"
+    requires_training: false
+    supports_sequential_editing: true
+
+    supported_models:
+      - "gpt2-xl"
+      - "gpt-j-6b"
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama3-8b"
+      - "mistral-7b"
+      - "baichuan-7b"
+      - "chatglm2-6b"
+      - "qwen-7b"
+      - "t5-3B"
+
+    required_hyperparameters:
+      - "k"
+      - "retrieval_model"
+
+    optional_hyperparameters:
+      - "template"
+      - "max_length"
+      - "temperature"
+
+    default_hyperparameters:
+      k: 5
+      retrieval_model: "sentence-transformers/all-MiniLM-L6-v2"
+      template: "Question: {prompt}\nAnswer: {target_new}"
+      max_length: 512
+
+    characteristics:
+      precision: "medium"
+      speed: "fast"
+      locality_preservation: "good"
+      generalization: "medium"
+      scalability: "excellent"
+
+    dependencies:
+      - "sentence-transformers"
+
+  # Knowledge Neurons - maps to easyeditor/models/kn/
+  KN:
+    display_name: "KN"
+    full_name: "Knowledge Neurons"
+    category: "locate_then_edit"
+    description: "Editing by identifying and modifying knowledge neurons"
+
+    module_path: "easyeditor.models.kn"
+    hparams_class: "KNHyperParams"
+    apply_function: "apply_kn_to_model"
+
+    supported_scripts:
+      - "run_zsre_llama2.py"
+      - "run_knowedit_llama2.py"
+
+    gpu_memory: "8-16GB"
+    requires_training: false
+    supports_sequential_editing: true
+
+    supported_models:
+      - "gpt2-xl"
+      - "gpt-j-6b"
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama3-8b"
+      - "mistral-7b"
+      - "baichuan-7b"
+      - "chatglm2-6b"
+      - "qwen-7b"
+      - "t5-3B"
+
+    required_hyperparameters:
+      - "layers"
+      - "refinement_steps"
+      - "kn_threshold"
+
+    optional_hyperparameters:
+      - "batch_size"
+      - "max_length"
+
+    default_hyperparameters:
+      layers: [5, 6, 7, 8]
+      refinement_steps: 10
+      kn_threshold: 0.1
+      batch_size: 1
+
+    characteristics:
+      precision: "medium"
+      speed: "medium"
+      locality_preservation: "good"
+      generalization: "medium"
+      scalability: "medium"
+
+    dependencies: []
+
+  # Additional methods following the same pattern...
+  # MEND, SERAC, LoRA, GRACE, etc. would follow the same structure
+
+# Method categories for organization
+categories:
+  locate_then_edit:
+    description: "Methods that locate and edit specific model components"
+    methods: ["ROME", "MEMIT", "KN"]
+
+  meta_learning:
+    description: "Methods that learn to edit through meta-learning"
+    methods: ["MEND"]
+
+  memory_based:
+    description: "Methods that use external memory for editing"
+    methods: ["IKE", "SERAC", "GRACE"]
+
+  optimization_based:
+    description: "Methods based on optimization techniques"
+    methods: ["FT"]
+
+  parameter_efficient:
+    description: "Methods that use parameter-efficient fine-tuning"
+    methods: ["LoRA"]
+
+# Dynamic discovery configuration
+discovery:
+  # Auto-discovery settings
+  auto_discover: true
+  scan_directories:
+    - "easyeditor/models"
+    - "examples"
+
+  # Pattern matching for new methods
+  method_patterns:
+    module_pattern: "easyeditor.models.{method_name}"
+    hparams_pattern: "{method_name}_hparams.py"
+    apply_pattern: "apply_{method_name}_to_model"
+
+  # Script discovery patterns
+  script_patterns:
+    run_pattern: "run_{method_name}.py"
+    run_method_pattern: "run_{method_name}_{model}.py"
+
+  # Validation rules for discovered methods
+  validation:
+    required_files:
+      - "hparams.py"
+      - "__init__.py"
+    required_functions:
+      - "apply_*_to_model"
+    required_classes:
+      - "*HyperParams"
+
+# Extension points for new methods
+extensions:
+  # Method registration template (for adding new methods)
+  method_template:
+    display_name: "{method_display_name}"
+    full_name: "{method_full_name}"
+    category: "{method_category}"
+    description: "{method_description}"
+
+    module_path: "easyeditor.models.{method_name}"
+    hparams_class: "{MethodName}HyperParams"
+    apply_function: "apply_{method_name}_to_model"
+
+    supported_scripts: []
+    gpu_memory: "TBD"
+    requires_training: false
+    supports_sequential_editing: true
+
+    supported_models: []
+    required_hyperparameters: []
+    optional_hyperparameters: []
+    default_hyperparameters: {}
+
+    characteristics: {}
+    dependencies: []
+
+  # Batch registration (for multiple methods)
+  batch_registration:
+    enabled: true
+    source_files:
+      - "easyeditor/models/__init__.py"
+      - "hparams/*/"
+
+    # Auto-generate profiles for discovered methods
+    auto_generate: true
+    generate_missing: true
+
+# Compatibility and versioning
+compatibility:
+  # EasyEdit version compatibility
+  easyedit_version: "1.0+"
+
+  # Method version tracking
+  method_versions:
+    ROME: "1.0"
+    MEMIT: "1.0"
+    FT: "1.0"
+    IKE: "1.0"
+    KN: "1.0"
+
+  # Deprecation warnings
+  deprecated_methods: []
+  alternative_methods: {}
+
+# Performance benchmarks (optional, for estimation)
+benchmarks:
+  reference_hardware:
+    gpu: "RTX 3090"
+    cpu: "16 cores"
+    memory: "32GB"
+
+  execution_time_estimates:
+    ROME: "5-30 minutes"
+    MEMIT: "10-60 minutes"
+    FT: "30 minutes - 2 hours"
+    IKE: "1-10 minutes"
+    KN: "10-30 minutes"
+
+  memory_usage_estimates:
+    ROME: "8-16GB"
+    MEMIT: "8-16GB"
+    FT: "12-16GB"
+    IKE: "8-12GB"
+    KN: "8-16GB"

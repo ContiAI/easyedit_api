@@ -1,0 +1,473 @@
+# Dataset Profiles Template
+# This file contains profiles for all supported datasets
+
+datasets:
+  # ZsRE Dataset
+  ZsRE:
+    category: "question_answering"
+    description: "Zero-shot Relation Extraction dataset for question answering"
+    language: ["en"]
+    size: "10,000 train / 1,301 test"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+      - "portability_prompt"
+      - "locality_prompt"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+      rephrase: "rephrase"
+
+    characteristics:
+      edit_type: "knowledge_update"
+      complexity: "medium"
+      evaluation_metrics: ["reliability", "generalization", "locality", "portability"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "MEND"
+      - "IKE"
+      - "KN"
+      - "SERAC"
+      - "LoRA"
+
+    download_url: "https://drive.google.com/file/d/1WRo2SqqgNtZF11Vq0sF5nL_-bHi18Wi4/view?usp=sharing"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # WikiBio Dataset
+  WikiBio:
+    category: "biography"
+    description: "Wikipedia-style biography dataset for hallucination correction"
+    language: ["en"]
+    size: "592 train / 1,392 test"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+
+    characteristics:
+      edit_type: "hallucination_correction"
+      complexity: "medium"
+      evaluation_metrics: ["reliability", "locality"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "IKE"
+      - "KN"
+
+    download_url: "https://drive.google.com/file/d/1WRo2SqqgNtZF11Vq0sF5nL_-bHi18Wi4/view?usp=sharing"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # Counterfact Dataset
+  Counterfact:
+    category: "counterfactual"
+    description: "Counterfactual dataset using entity replacement"
+    language: ["en"]
+    size: "1,455 train / 885 test"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+      - "portability_prompt"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+
+    characteristics:
+      edit_type: "counterfactual_editing"
+      complexity: "medium"
+      evaluation_metrics: ["reliability", "generalization", "locality", "portability"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "MEND"
+      - "KN"
+
+    download_url: "https://drive.google.com/file/d/1WRo2SqqgNtZF11Vq0sF5nL_-bHi18Wi4/view?usp=sharing"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # WikiRecent Dataset
+  WikiRecent:
+    category: "factual"
+    description: "Recent knowledge insertion dataset from Wikipedia"
+    language: ["en"]
+    size: "570 train / 1,266 test"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+
+    characteristics:
+      edit_type: "knowledge_insertion"
+      complexity: "medium"
+      evaluation_metrics: ["reliability", "generalization", "locality"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "IKE"
+      - "KN"
+
+    download_url: "https://drive.google.com/file/d/1WRo2SqqgNtZF11Vq0sF5nL_-bHi18Wi4/view?usp=sharing"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # KnowEdit Dataset
+  KnowEdit:
+    category: "comprehensive"
+    description: "Comprehensive benchmark dataset for knowledge editing"
+    language: ["en"]
+    size: "Multiple subsets with varying sizes"
+    format: "json"
+
+    subsets:
+      - "WikiData_recent"
+      - "ZsRE"
+      - "WikiBio"
+      - "WikiData_counterfact"
+      - "ConvSent"
+      - "Sanitation"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+      - "portability_prompt"
+      - "locality_prompt"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+      rephrase: "rephrase"
+
+    characteristics:
+      edit_type: "comprehensive"
+      complexity: "varies"
+      evaluation_metrics: ["reliability", "generalization", "locality", "portability"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "MEND"
+      - "IKE"
+      - "KN"
+      - "SERAC"
+      - "LoRA"
+
+    download_url: "https://huggingface.co/datasets/zjunlp/KnowEdit"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # CKnowEdit Dataset
+  CKnowEdit:
+    category: "chinese_knowledge"
+    description: "Chinese knowledge editing dataset"
+    language: ["zh"]
+    size: "Multiple Chinese-specific subsets"
+    format: "json"
+
+    subsets:
+      - "Chinese_Literary_Knowledge"
+      - "Chinese_Linguistic_Knowledge"
+      - "Chinese_Geographical_Knowledge"
+      - "Ruozhiba"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "subject"
+      - "rephrase"
+      - "portability_prompt"
+      - "locality_prompt"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      subject: "subject"
+
+    characteristics:
+      edit_type: "chinese_knowledge"
+      complexity: "medium"
+      evaluation_metrics: ["reliability", "generalization", "locality"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "IKE"
+      - "KN"
+
+    download_url: "https://huggingface.co/datasets/zjunlp/CKnowEdit"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # SafeEdit Dataset
+  SafeEdit:
+    category: "safety"
+    description: "Dataset for detoxifying large language models"
+    language: ["en"]
+    size: "Train/Val/Test splits"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "toxicity_level"
+      - "attack_type"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+
+    characteristics:
+      edit_type: "safety_editing"
+      complexity: "high"
+      evaluation_metrics: ["defense_success", "defense_generalization", "general_performance"]
+
+    supported_methods:
+      - "DINM"
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+
+    download_url: "https://huggingface.co/datasets/zjunlp/SafeEdit"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # ConceptEdit Dataset
+  ConceptEdit:
+    category: "conceptual"
+    description: "Dataset for editing conceptual knowledge"
+    language: ["en"]
+    size: "Model-specific splits"
+    format: "json"
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+
+    optional_fields:
+      - "concept"
+      - "category"
+      - "instance_type"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+
+    characteristics:
+      edit_type: "conceptual_editing"
+      complexity: "high"
+      evaluation_metrics: ["instance_change", "concept_consistency"]
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "IKE"
+
+    download_url: "https://huggingface.co/datasets/zjunlp/ConceptEdit"
+    preprocessing:
+      max_length: 512
+      truncate: true
+
+  # MMEdit (Multimodal Edit) Dataset
+  MMEdit:
+    category: "multimodal"
+    description: "Multimodal dataset for image captioning and VQA editing"
+    language: ["en"]
+    size: "Varies by task type"
+    format: "json"
+
+    subsets:
+      - "E-IC"  # Image Captioning
+      - "E-VQA"  # Visual Question Answering
+
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+      - "image_path"
+
+    optional_fields:
+      - "image_id"
+      - "question_type"
+      - "answer_type"
+
+    field_mapping:
+      prompt: "prompt"
+      target_new: "target_new"
+      ground_truth: "ground_truth"
+      image_path: "image_path"
+
+    characteristics:
+      edit_type: "multimodal_editing"
+      complexity: "very_high"
+      evaluation_metrics: ["reliability", "multimodal_locality", "portability"]
+
+    supported_methods:
+      - "MEND"
+      - "SERAC"
+      - "IKE"
+      - "LoRA"
+      - "GRACE"
+
+    download_url: "https://drive.google.com/drive/folders/1jBdTJxUb9wEeHnvG-RY8dv5_I4QlDpUS?usp=drive_link"
+    preprocessing:
+      max_length: 512
+      truncate: true
+      image_size: [224, 224]
+
+# Dataset categories for organization
+categories:
+  question_answering:
+    description: "Datasets for question-answering tasks"
+    datasets: ["ZsRE"]
+
+  factual_knowledge:
+    description: "Datasets for factual knowledge editing"
+    datasets: ["WikiRecent", "Counterfact"]
+
+  hallucination_correction:
+    description: "Datasets for correcting model hallucinations"
+    datasets: ["WikiBio"]
+
+  comprehensive:
+    description: "Comprehensive benchmark datasets"
+    datasets: ["KnowEdit"]
+
+  safety:
+    description: "Datasets for safety and detoxification"
+    datasets: ["SafeEdit"]
+
+  conceptual:
+    description: "Datasets for conceptual knowledge editing"
+    datasets: ["ConceptEdit"]
+
+  multimodal:
+    description: "Datasets for multimodal model editing"
+    datasets: ["MMEdit"]
+
+  language_specific:
+    description: "Language-specific datasets"
+    datasets: ["CKnowEdit"]
+
+# Common preprocessing configurations
+preprocessing:
+  text:
+    max_length: 512
+    truncate: true
+    padding: "max_length"
+    return_tensors: "pt"
+
+  image:
+    size: [224, 224]
+    normalize: true
+    center_crop: true
+
+  batch:
+    batch_size: 1
+    shuffle: true
+    num_workers: 4
+
+# Evaluation configurations
+evaluation:
+  metrics:
+    reliability:
+      description: "Success rate of edits on target prompts"
+      compute: true
+
+    generalization:
+      description: "Success rate on rephrased prompts"
+      compute: true
+
+    locality:
+      description: "Preservation of unrelated knowledge"
+      compute: true
+      types: ["neighborhood", "distracting"]
+
+    portability:
+      description: "Success on reasoning tasks"
+      compute: true
+      types: ["one_hop", "subject_replace", "inverse_relation"]
+
+  scoring:
+    method: "token_based"  # token_based, semantic
+    threshold: 0.5

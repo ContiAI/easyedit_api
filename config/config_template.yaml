@@ -1,0 +1,762 @@
+# EasyEdit Declarative Configuration Template
+# This file defines the structure for declaring model editing experiments
+# Based on EasyEdit's actual module structure and design patterns
+
+experiment:
+  name: "model_editing_experiment"
+  description: "A declarative model editing experiment"
+  version: "1.0"
+  author: "researcher_name"
+  tags: ["knowledge_editing", "llm", "experiment"]
+
+# Environment configuration
+environment:
+  python_version: "3.9+"
+  device: "cuda"  # cuda, cpu, auto
+  gpu_ids: [0]  # GPU device IDs to use
+  seed: 42
+  workspace_dir: "./workspace"
+  results_dir: "./results"
+  logs_dir: "./logs"
+
+# Model configuration - Intent-driven model declaration
+model:
+  # Model intent - WHAT model capabilities you need
+  model_intent:
+    purpose: "knowledge_editing"  # knowledge_editing, general_generation, specific_task
+    architecture_preference: "auto"  # auto, decoder_only, encoder_decoder, hybrid
+    size_preference: "medium"  # tiny, small, medium, large, any
+    performance_requirements:
+      inference_speed: "medium"  # slow, medium, fast
+      memory_efficiency: "medium"  # low, medium, high
+      editing_compatibility: "high"  # low, medium, high
+
+  # Model discovery - Auto-discover models from multiple sources
+  model_discovery:
+    auto_discover: true
+    discovery_sources:
+      - local_paths:
+          - "./hugging_cache/"
+          - "./models/"
+          - "./custom_models/"
+      - huggingface_hub: []
+      - model_repositories: []
+
+    # Model selection criteria
+    selection_criteria:
+      compatibility_score: 0.8  # minimum compatibility with editing method
+      performance_requirements:
+        min_parameters: "1B"
+        max_parameters: "100B"
+      hardware_requirements:
+        gpu_memory: "16GB"
+        system_memory: "32GB"
+
+  # Dynamic model configuration
+  model_config:
+    # Auto-detected model specification
+    discovered_model: null
+    model_metadata: {}
+
+    # Universal model loading (works with any model)
+    universal_loading:
+      auto_detect_architecture: true
+      auto_configure_tokenizer: true
+      auto_optimize_loading: true
+      auto_select_quantization: true
+
+    # Hardware optimization
+    hardware_optimization:
+      auto_quantization: true
+      auto_device_mapping: true
+      memory_optimization: true
+      compute_optimization: true
+
+    # Model-specific parameters (auto-populated)
+    discovered_parameters: {}
+
+  # Architecture adaptation - Auto-adapt to any model architecture
+  architecture_adaptation:
+    auto_detect_architecture: true
+    supported_architectures:
+      - "decoder_only"  # GPT, LLaMA, etc.
+      - "encoder_decoder"  # T5, BART, etc.
+      - "hybrid"  # Custom architectures
+      - "mixture_of_experts"  # MoE models
+
+    # Component auto-discovery
+    component_discovery:
+      layer_patterns: []
+      attention_patterns: []
+      mlp_patterns: []
+      normalization_patterns: []
+
+    # Custom architecture handlers (plugin architecture)
+    custom_architecture_handlers: []
+    architecture_handler_paths:
+      - "architecture_handlers/"
+      - "custom_architectures/"
+
+# Editing method configuration - Intent-driven declaration
+editing:
+  # Method intent declaration - WHAT to achieve, not HOW
+  intent:
+    goal: "knowledge_editing"  # knowledge_editing, behavior_modification, capability_removal
+    strategy: "precise_localization"  # precise_localization, global_adjustment, memory_based
+    constraints:
+      locality_preservation: "high"
+      generalization: "medium"
+      computational_cost: "low"
+      training_required: false
+
+  # Method selection - Let system discover and recommend optimal method
+  method_selection:
+    preferred_method: "auto"  # auto, ROME, MEMIT, FT, etc.
+    method_candidates: []  # empty means auto-discover all compatible methods
+    selection_criteria:
+      accuracy_weight: 0.7
+      speed_weight: 0.2
+      memory_weight: 0.1
+
+  # Dynamic method configuration - Auto-discovered from method implementations
+  method_config:
+    # Auto-discovery settings
+    auto_discover: true
+    discovery_paths:
+      - "easyeditor/models/*/"
+      - "custom_methods/*/"
+      - "external_methods/*/"
+
+    # Universal parameter system - works with any method
+    universal_parameters:
+      # Intent-based parameters (translated to method-specific by system)
+      target_precision: "high"  # low, medium, high
+      edit_strength: 0.5  # 0.0 to 1.0
+      conservation_strength: 0.8  # preserve original behavior
+      max_editing_time: 1800  # seconds
+
+    # Method-specific parameters (auto-populated by discovery)
+    discovered_parameters: {}
+
+    # Architecture adaptation - auto-detect and adapt to model architecture
+    architecture_adaptation:
+      auto_detect: true
+      layer_patterns: []
+      module_patterns: []
+      parameter_mapping: {}
+
+  # Execution intent - WHAT execution should achieve
+  execution_intent:
+    mode: "standard"  # standard, batch, sequential, distributed
+    optimization_target: "balanced"  # speed, memory, quality, balanced
+    fault_tolerance: "standard"  # none, standard, high
+    resource_limits:
+      max_gpu_memory: "16GB"
+      max_cpu_cores: 4
+      max_execution_time: 3600
+
+  # Auto-discovered execution configuration
+  execution:
+    # Script auto-discovery
+    auto_discover_script: true
+    script_search_paths:
+      - "examples/"
+      - "custom_scripts/"
+      - "external_scripts/"
+
+    # Execution mapping (auto-generated by system)
+    discovered_script: null
+    script_mapping: {}
+    parameter_mapping: {}
+
+    # Fallback configuration
+    fallback_method: "FT"  # fallback if primary method fails
+    fallback_strategy: "reduce_precision"  # reduce_precision, simplify_model, skip_complex_edits
+
+# Dataset configuration - Intent-driven dataset declaration
+dataset:
+  # Dataset intent - WHAT data you need
+  data_intent:
+    purpose: "knowledge_editing"  # knowledge_editing, evaluation, benchmarking
+    domain: "general_knowledge"  # general_knowledge, specific_domain, multilingual
+    data_type: "structured_factual"  # structured_factual, conversational, instructional
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+    optional_fields:
+      - "subject"
+      - "rephrase"
+      - "portability_prompts"
+
+  # Dataset discovery - Auto-discover datasets from multiple sources
+  dataset_discovery:
+    auto_discover: true
+    discovery_sources:
+      - local_paths:
+          - "./data/"
+          - "./datasets/"
+          - "./external_data/"
+      - remote_repositories: []
+      - generated_datasets: []
+
+    # Dataset selection criteria
+    selection_criteria:
+      compatibility_score: 0.8  # minimum compatibility with editing method
+      data_quality: "high"  # low, medium, high
+      size_preference: "medium"  # small, medium, large, any
+
+  # Dynamic dataset configuration
+  dataset_config:
+    # Auto-detected dataset specification
+    discovered_dataset: null
+    dataset_metadata: {}
+
+    # Universal data preprocessing (works with any dataset)
+    universal_preprocessing:
+      quality_filtering: true
+      deduplication: true
+      format_standardization: true
+      content_validation: true
+
+    # Intent-based preprocessing
+    intent_preprocessing:
+      optimize_for_method: true  # optimize preprocessing for selected editing method
+      adaptive_length: true  # adapt sequence length based on model and method
+      batch_optimization: true  # optimize batch size and composition
+
+    # Dataset-specific parameters (auto-populated)
+    discovered_parameters: {}
+
+  # Data format adaptation - Auto-adapt to any dataset format
+  format_adaptation:
+    auto_detect_format: true
+    supported_formats:
+      - "json"
+      - "jsonl"
+      - "csv"
+      - "tsv"
+      - "parquet"
+      - "txt"
+      - "yaml"
+
+    # Schema inference and mapping
+    schema_inference:
+      auto_infer_schema: true
+      field_mapping_strategy: "semantic"  # semantic, pattern_based, rule_based
+      confidence_threshold: 0.7
+
+    # Custom format handlers (plugin architecture)
+    custom_format_handlers: []
+    format_handler_paths:
+      - "dataset_handlers/"
+      - "custom_handlers/"
+
+# Execution configuration - Intent-driven execution declaration
+execution:
+  # Execution intent - WHAT execution should achieve
+  execution_intent:
+    goal: "successful_editing"  # successful_editing, fast_execution, resource_optimization
+    strategy: "adaptive"  # adaptive, conservative, aggressive
+    quality_requirements:
+      success_rate: 0.95  # minimum success rate
+      quality_threshold: 0.8  # minimum editing quality
+    efficiency_requirements:
+      max_execution_time: 3600  # seconds
+      max_resource_usage: 0.8  # 80% of available resources
+    robustness_requirements:
+      fault_tolerance: "standard"  # none, standard, high
+      retry_strategy: "adaptive"  # none, fixed, adaptive
+
+  # Universal execution engine - Works with any task type
+  universal_execution:
+    # Task abstraction
+    task_abstraction:
+      task_type: "auto"  # auto, single_edit, batch_edit, sequential_edit, distributed_edit
+      task_complexity: "auto"  # auto, simple, medium, complex
+      task_priority: "normal"  # low, normal, high, critical
+
+    # Execution strategies
+    execution_strategies:
+      strategy_selection: "auto"  # auto, user_defined, system_optimized
+      available_strategies:
+        - "sequential_execution"
+        - "parallel_execution"
+        - "distributed_execution"
+        - "adaptive_execution"
+        - "fault_tolerance_execution"
+
+    # Resource abstraction
+    resource_abstraction:
+      resource_type: "auto"  # auto, cpu_only, gpu_only, hybrid
+      resource_allocation: "auto"  # auto, fixed, dynamic, adaptive
+      scaling_strategy: "auto"  # auto, vertical, horizontal, elastic
+
+  # Intelligent execution optimization
+  execution_optimization:
+    # Auto-optimization
+    auto_optimization:
+      enabled: true
+      optimization_targets:
+        - "speed"
+        - "memory"
+        - "quality"
+        - "cost"
+
+    # Adaptive execution
+    adaptive_execution:
+      enabled: true
+      adaptation_triggers:
+        - "performance_degradation"
+        - "resource_exhaustion"
+        - "quality_drop"
+        - "time_constraint"
+
+    # Predictive optimization
+    predictive_optimization:
+      enabled: true
+      prediction_based_on:
+        - "historical_performance"
+        - "task_characteristics"
+        - "resource_availability"
+        - "method_properties"
+
+  # Distributed execution (future-ready)
+  distributed_execution:
+    # Distribution strategies
+    distribution_strategies:
+      data_parallel: true
+      model_parallel: true
+      pipeline_parallel: true
+      hybrid_parallel: true
+
+    # Cluster management
+    cluster_management:
+      auto_discover_nodes: true
+      auto_configure_network: true
+      auto_balance_load: true
+
+    # Fault tolerance
+    fault_tolerance:
+      checkpoint_interval: 300  # seconds
+      retry_on_failure: true
+      failover_strategy: "auto"
+
+  # Execution monitoring and control
+  execution_monitoring:
+    # Real-time monitoring
+    real_time_monitoring:
+      enabled: true
+      monitoring_metrics:
+        - "progress"
+        - "resource_usage"
+        - "quality_metrics"
+        - "error_rates"
+
+    # Intelligent control
+    intelligent_control:
+      enabled: true
+      control_actions:
+        - "pause_on_error"
+        - "adjust_parameters"
+        - "switch_strategy"
+        - "resource_reallocation"
+
+    # Predictive alerts
+    predictive_alerts:
+      enabled: true
+      alert_triggers:
+        - "resource_exhaustion_predicted"
+        - "quality_degradation_predicted"
+        - "timeout_predicted"
+        - "failure_predicted"
+
+# Evaluation configuration - Based on EasyEdit's evaluation system
+evaluation:
+  enabled: true
+  metrics:
+    - "reliability"
+    - "generalization"
+    - "locality"
+    - "portability"
+
+  # Evaluation dataset (can be different from training dataset)
+  eval_dataset:
+    path: "./data/zsre_mend_eval.json"
+    dataset_class: "ZsreDataset"
+
+  # Locality test configuration (from EasyEdit's locality evaluation)
+  locality:
+    neighborhood:
+      enabled: true
+      prompts: []
+      ground_truth: []
+    distracting:
+      enabled: true
+      prompts: []
+      ground_truth: []
+
+  # Portability test configuration (from EasyEdit's portability evaluation)
+  portability:
+    one_hop: true
+    subject_replace: true
+    inverse_relation: true
+
+# Output configuration - Based on EasyEdit's output patterns
+output:
+  # Results saving
+  save_results: true
+  results_format: "json"  # json, csv, yaml
+
+  # Model saving
+  save_model: false
+  model_output_dir: "./edited_models"
+
+  # Logging
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_to_file: true
+  log_to_console: true
+
+  # Checkpoint
+  save_checkpoint: true
+  checkpoint_dir: "./checkpoints"
+
+  # EasyEdit-specific output directories
+  metrics_save_dir: "./results/metrics"
+  edited_model_dir: "./results/edited_models"
+
+# Workflow configuration - For complex experiment orchestration
+workflow:
+  # Sequential editing (for methods that support it)
+  sequential_edit: false
+  edit_dependencies: []  # List of task dependencies
+
+  # Batch processing
+  batch_processing:
+    enabled: false
+    batch_size: 10
+    shuffle_batch: true
+
+  # Conditional execution
+  conditions:
+    success_only: true
+    retry_on_failure: false
+    max_retries: 3
+
+  # Task chaining (output of one task as input to next)
+  task_chaining:
+    enabled: false
+    chain_config: []
+
+# Monitoring and debugging
+monitoring:
+  # Progress tracking
+  track_progress: true
+  progress_interval: 10  # seconds
+
+  # Memory monitoring
+  monitor_memory: true
+  memory_threshold: "90%"
+
+  # Error handling
+  error_handling: "strict"  # strict, graceful, ignore
+  continue_on_error: false
+
+  # EasyEdit-specific debugging
+  debug_mode: false
+  save_intermediate_results: false
+
+# Universal parameter system - Intent-driven parameter management
+universal_parameters:
+  # Parameter intent - WHAT outcomes you want
+  parameter_intent:
+    optimization_goal: "balanced"  # speed, memory, quality, balanced, cost
+    editing_style: "conservative"  # conservative, moderate, aggressive
+    risk_tolerance: "medium"  # low, medium, high
+    experimentation_level: "standard"  # minimal, standard, extensive
+
+  # Universal parameter abstraction
+  parameter_abstraction:
+    # Performance parameters (map to any method)
+    performance_parameters:
+      precision_target: "auto"  # auto, low, medium, high, maximum
+      speed_priority: "medium"  # low, medium, high
+      memory_efficiency: "medium"  # low, medium, high
+
+    # Quality parameters (map to any method)
+    quality_parameters:
+      edit_strength: "medium"  # low, medium, high
+      localization_precision: "medium"  # low, medium, high
+      generalization_ability: "medium"  # low, medium, high
+
+    # Robustness parameters (map to any method)
+    robustness_parameters:
+      stability_weight: "medium"  # low, medium, high
+      consistency_weight: "medium"  # low, medium, high
+      fault_tolerance: "medium"  # low, medium, high
+
+  # Intelligent parameter mapping
+  parameter_mapping:
+    # Auto-mapping system
+    auto_mapping:
+      enabled: true
+      mapping_strategy: "semantic"  # semantic, pattern_based, rule_based, learned
+      confidence_threshold: 0.8
+
+    # Context-aware mapping
+    context_awareness:
+      method_context: true
+      model_context: true
+      dataset_context: true
+      hardware_context: true
+
+    # Adaptive mapping
+    adaptive_mapping:
+      enabled: true
+      learning_from_results: true
+      continuous_improvement: true
+
+  # Parameter optimization
+  parameter_optimization:
+    # Auto-optimization
+    auto_optimization:
+      enabled: true
+      optimization_strategy: "bayesian"  # bayesian, genetic, gradient_based, random_search
+      optimization_budget: 100  # number of trials
+
+    # Multi-objective optimization
+    multi_objective:
+      enabled: true
+      objectives:
+        - "accuracy"
+        - "speed"
+        - "memory"
+        - "stability"
+      objective_weights:
+        accuracy: 0.4
+        speed: 0.3
+        memory: 0.2
+        stability: 0.1
+
+    # Constraint handling
+    constraint_handling:
+      hard_constraints: []
+      soft_constraints: []
+      constraint_satisfaction: "strict"  # strict, best_effort, relaxed
+
+# Advanced settings - Future-ready architecture
+advanced:
+  # Performance optimization
+  optimization:
+    mixed_precision: true
+    gradient_checkpointing: false
+    flash_attention: true
+    kernel_optimization: true
+    memory_mapping: true
+
+  # Distributed computing (for large models)
+  distributed:
+    enabled: false
+    backend: "nccl"  # nccl, gloo, mpi
+    init_method: "env://"
+    world_size: 1
+    rank: 0
+
+    # Auto-scaling
+    auto_scaling:
+      enabled: true
+      scaling_triggers:
+        - "resource_usage"
+        - "queue_length"
+        - "performance_degradation"
+
+  # Custom hooks and extensions
+  hooks:
+    pre_execution: []
+    post_execution: []
+    on_error: []
+    on_progress: []
+    on_completion: []
+
+  # Experimental features
+  experimental:
+    enable_new_features: false
+    feature_flags: {}
+    beta_features: []
+    alpha_features: []
+
+  # AI-driven optimization
+  ai_optimization:
+    enabled: true
+    optimization_level: "aggressive"  # conservative, moderate, aggressive
+    learning_from_history: true
+    predictive_optimization: true
+    adaptive_parameter_tuning: true
+
+# Plugin architecture - Extensible system for any future component
+plugins:
+  # Plugin discovery and management
+  plugin_management:
+    auto_discover_plugins: true
+    plugin_search_paths:
+      - "plugins/"
+      - "custom_plugins/"
+      - "external_plugins/"
+      - "community_plugins/"
+
+    # Plugin lifecycle management
+    plugin_lifecycle:
+      auto_load: true
+      auto_validate: true
+      auto_update: false
+      dependency_resolution: true
+
+  # Plugin interfaces - Extensible for any component type
+  plugin_interfaces:
+    # Method plugins
+    method_plugins:
+      interface_version: "1.0"
+      required_methods:
+        - "apply_edit"
+        - "validate_parameters"
+        - "estimate_resources"
+      optional_methods:
+        - "optimize_parameters"
+        - "get_editing_summary"
+        - "validate_model_compatibility"
+
+    # Dataset plugins
+    dataset_plugins:
+      interface_version: "1.0"
+      required_methods:
+        - "load_data"
+        - "validate_format"
+        - "preprocess_data"
+      optional_methods:
+        - "infer_schema"
+        - "generate_statistics"
+        - "optimize_for_method"
+
+    # Model plugins
+    model_plugins:
+      interface_version: "1.0"
+      required_methods:
+        - "load_model"
+        - "detect_architecture"
+        - "configure_model"
+      optional_methods:
+        - "optimize_model"
+        - "validate_compatibility"
+        - "estimate_resources"
+
+    # Architecture plugins
+    architecture_plugins:
+      interface_version: "1.0"
+      required_methods:
+        - "detect_components"
+        - "map_parameters"
+        - "validate_structure"
+      optional_methods:
+        - "optimize_architecture"
+        - "generate_visualization"
+        - "extract_features"
+
+    # Execution plugins
+    execution_plugins:
+      interface_version: "1.0"
+      required_methods:
+        - "execute_task"
+        - "monitor_progress"
+        - "handle_errors"
+      optional_methods:
+        - "optimize_execution"
+        - "parallelize_task"
+        - "distribute_execution"
+
+  # Plugin configuration
+  plugin_config:
+    # Validation and security
+    validation:
+      validate_plugins: true
+      sandbox_execution: false
+      signature_verification: false
+
+    # Performance and optimization
+    optimization:
+      lazy_loading: true
+      caching_enabled: true
+      precompilation: false
+
+    # Dependency management
+    dependencies:
+      auto_install: false
+      version_constraints: true
+      conflict_resolution: true
+
+# Dynamic configuration extension points
+extensions:
+  # Universal extension system - works with any component
+  universal_extensions:
+    # Extension discovery
+    discovery_patterns:
+      - "extensions/**/extension.yaml"
+      - "custom_extensions/**/config.yaml"
+      - "external_extensions/**/*.yaml"
+
+    # Extension validation
+    validation:
+      schema_validation: true
+      dependency_validation: true
+      compatibility_validation: true
+
+  # Component-specific extensions
+  component_extensions:
+    # Method extensions (auto-discovered)
+    method_extensions: {}
+
+    # Dataset extensions (auto-discovered)
+    dataset_extensions: {}
+
+    # Model extensions (auto-discovered)
+    model_extensions: {}
+
+    # Architecture extensions (auto-discovered)
+    architecture_extensions: {}
+
+    # Execution extensions (auto-discovered)
+    execution_extensions: {}
+
+  # User extensions
+  user_extensions:
+    # User-specific customizations
+    custom_intents: {}
+    custom_strategies: {}
+    custom_criteria: {}
+
+    # Personal preferences
+    preferences:
+      default_selection_criteria: {}
+      default_resource_limits: {}
+      default_optimization_targets: {}
+
+# Metadata and documentation
+metadata:
+  created_date: "2024-01-01"
+  modified_date: "2024-01-01"
+  experiment_id: "exp_001"
+  parent_experiment: null
+
+  # Reproducibility
+  reproducibility:
+    save_config: true
+    save_environment: true
+    save_git_info: true
+
+  # Notes and documentation
+  notes: "This is a template configuration file for EasyEdit declarative framework"
+
+  # Links to related resources
+  documentation:
+    method_docs: ""
+    dataset_docs: ""
+    script_docs: ""

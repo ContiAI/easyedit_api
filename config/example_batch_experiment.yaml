@@ -1,0 +1,242 @@
+# Example: Batch Knowledge Editing Experiment
+# This example demonstrates how to configure multiple editing tasks in one experiment
+
+experiment:
+  name: "batch_knowledge_editing"
+  description: "Batch processing of multiple knowledge editing tasks"
+  version: "1.0"
+  author: "researcher"
+  tags: ["batch", "multiple_methods", "knowledge_editing"]
+
+# Environment configuration
+environment:
+  python_version: "3.9+"
+  device: "cuda"
+  gpu_ids: [0, 1]
+  seed: 42
+  workspace_dir: "./workspace"
+  results_dir: "./results/batch_experiments"
+  logs_dir: "./logs/batch_experiments"
+
+# Model configuration
+model:
+  name: "llama-2-7b"
+  path: "./hugging_cache/llama-2-7b-chat"
+  type: "causal_lm"
+  tokenizer_path: "./hugging_cache/llama-2-7b-chat"
+  model_class: "LlamaForCausalLM"
+  tokenizer_class: "LlamaTokenizer"
+
+  load_in_8bit: false
+  load_in_4bit: false
+  device_map: "auto"
+  torch_dtype: "float16"
+
+# Batch editing tasks
+editing_tasks:
+  # Task 1: ROME on ZsRE
+  - task_name: "rome_zsre"
+    method: "ROME"
+    dataset:
+      name: "ZsRE"
+      path: "./data/zsre_mend_eval.json"
+    hyperparameters:
+      layers: [5]
+      v_lr: 0.5
+      v_num_grad_steps: 25
+      mom2_adjustment: false
+    resources:
+      gpu_id: 0
+
+  # Task 2: MEMIT on WikiBio
+  - task_name: "memit_wikibio"
+    method: "MEMIT"
+    dataset:
+      name: "WikiBio"
+      path: "./data/wikibio-test-all.json"
+    hyperparameters:
+      layers: [4, 5, 6, 7, 8]
+      clamp_norm_factor: 4
+      kl_factor: 0.0625
+    resources:
+      gpu_id: 1
+
+  # Task 3: IKE on Counterfact
+  - task_name: "ike_counterfact"
+    method: "IKE"
+    dataset:
+      name: "Counterfact"
+      path: "./data/counterfact/counterfact-edit.json"
+    hyperparameters:
+      k: 5
+      retrieval_model: "sentence-transformers/all-MiniLM-L6-v2"
+      template: "Question: {prompt}\nAnswer: {target_new}"
+    resources:
+      gpu_id: 0
+
+  # Task 4: FT on WikiRecent
+  - task_name: "ft_wikirecent"
+    method: "FT"
+    dataset:
+      name: "WikiRecent"
+      path: "./data/recent_test.json"
+    hyperparameters:
+      lr: 5e-5
+      batch_size: 4
+      num_epochs: 3
+      weight_decay: 0.01
+    resources:
+      gpu_id: 1
+
+# Execution configuration
+execution:
+  task_type: "batch_edit"
+  mode: "parallel"  # Run tasks in parallel on different GPUs
+
+  resources:
+    gpu_memory_limit: "16GB"
+    cpu_cores: 8
+    timeout: 7200
+
+  parallel:
+    enabled: true
+    max_workers: 2
+    per_gpu_batch_size: 1
+
+# Evaluation configuration
+evaluation:
+  enabled: true
+  metrics:
+    - "reliability"
+    - "generalization"
+    - "locality"
+
+  # Task-specific evaluation datasets
+  task_eval_configs:
+    rome_zsre:
+      eval_dataset:
+        path: "./data/zsre_mend_eval.json"
+      portability:
+        one_hop: true
+        subject_replace: true
+
+    memit_wikibio:
+      eval_dataset:
+        path: "./data/wikibio-test-all.json"
+      locality:
+        neighborhood: true
+
+    ike_counterfact:
+      eval_dataset:
+        path: "./data/counterfact/counterfact-edit.json"
+
+    ft_wikirecent:
+      eval_dataset:
+        path: "./data/recent_test.json"
+
+# Output configuration
+output:
+  save_results: true
+  results_format: "json"
+  save_model: false
+  model_output_dir: "./edited_models"
+  log_level: "INFO"
+  log_to_file: true
+  log_to_console: true
+
+  # Task-specific output directories
+  task_output_dirs:
+    rome_zsre: "./results/rome_zsre"
+    memit_wikibio: "./results/memit_wikibio"
+    ike_counterfact: "./results/ike_counterfact"
+    ft_wikirecent: "./results/ft_wikirecent"
+
+# Workflow configuration
+workflow:
+  batch_processing:
+    enabled: true
+    batch_size: 1
+    shuffle_batch: false
+    max_concurrent_tasks: 2
+
+  conditions:
+    success_only: true
+    retry_on_failure: true
+    max_retries: 3
+
+  # Task dependencies (if any)
+  dependencies: {}
+
+# Monitoring and debugging
+monitoring:
+  track_progress: true
+  progress_interval: 30
+  monitor_memory: true
+  memory_threshold: "90%"
+  error_handling: "graceful"
+  continue_on_error: true
+
+  # Task-specific monitoring
+  task_monitoring:
+    rome_zsre:
+      timeout: 3600
+    memit_wikibio:
+      timeout: 3600
+    ike_counterfact:
+      timeout: 1800
+    ft_wikirecent:
+      timeout: 7200
+
+# Advanced settings
+advanced:
+  optimization:
+    mixed_precision: true
+    gradient_checkpointing: false
+    flash_attention: true
+
+  distributed:
+    enabled: false
+    backend: "nccl"
+    init_method: "env://"
+
+# Metadata
+metadata:
+  created_date: "2024-01-01"
+  modified_date: "2024-01-01"
+  experiment_id: "batch_editing_001"
+  parent_experiment: null
+
+  reproducibility:
+    save_config: true
+    save_environment: true
+    save_git_info: true
+
+  notes: "Batch processing example with multiple editing methods and datasets"
+
+# Expected output structure
+expected_results:
+  results_file: "./results/batch_experiments/batch_results.json"
+  summary_file: "./results/batch_experiments/summary.json"
+  comparison_file: "./results/batch_experiments/method_comparison.json"
+
+  # Expected metrics for each task
+  expected_metrics:
+    rome_zsre:
+      reliability: ">90%"
+      generalization: ">85%"
+      locality: ">95%"
+
+    memit_wikibio:
+      reliability: ">95%"
+      generalization: ">90%"
+      locality: ">98%"
+
+    ike_counterfact:
+      reliability: ">80%"
+      generalization: ">75%"
+      locality: ">85%"
+
+    ft_wikirecent:
+      reliability: ">85%"
+      generalization: ">80%"
+      locality: ">90%"

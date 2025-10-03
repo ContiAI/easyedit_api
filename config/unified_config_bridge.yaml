@@ -1,0 +1,267 @@
+# Unified Configuration Bridge
+# This file bridges the API and YAML configuration layers
+# Ensures consistency between API expectations and YAML structure
+
+# Configuration mapping definitions
+config_mappings:
+  # API to YAML parameter mappings
+  api_to_yaml:
+    # Model configuration mappings
+    model_intent:
+      model_intent: "model.model_intent"
+      method: "model.model_intent.method"
+      hparams_dir: "model.model_intent.hparams_dir"
+      purpose: "model.model_intent.purpose"
+      architecture_preference: "model.model_intent.architecture_preference"
+      size_preference: "model.model_intent.size_preference"
+
+    # Editing configuration mappings
+    editing_intent:
+      goal: "editing.intent.goal"
+      method: "editing.intent.method"
+      strategy: "editing.intent.strategy"
+      constraints: "editing.intent.constraints"
+
+    # Dataset configuration mappings
+    dataset_intent:
+      data_dir: "dataset.data_intent.data_dir"
+      dataset_name: "dataset.data_intent.dataset_name"
+      data_type: "dataset.data_intent.data_type"
+      required_fields: "dataset.data_intent.required_fields"
+      ds_size: "dataset.data_intent.ds_size"
+
+    # Execution configuration mappings
+    execution_intent:
+      metrics_save_dir: "execution.execution_intent.metrics_save_dir"
+      timeout: "execution.execution_intent.max_execution_time"
+      success_rate_threshold: "execution.execution_intent.quality_requirements.success_rate_threshold"
+
+  # YAML to API parameter mappings
+  yaml_to_api:
+    # Model configuration
+    model:
+      model_intent:
+        purpose: "purpose"
+        method: "method"
+        hparams_dir: "hparams_dir"
+        architecture_preference: "architecture_preference"
+        size_preference: "size_preference"
+
+    # Editing configuration
+    editing:
+      intent:
+        goal: "goal"
+        method: "method"
+        strategy: "strategy"
+        constraints: "constraints"
+
+    # Dataset configuration
+    dataset:
+      data_intent:
+        data_dir: "data_dir"
+        dataset_name: "dataset_name"
+        data_type: "data_type"
+        required_fields: "required_fields"
+        ds_size: "ds_size"
+
+    # Execution configuration
+    execution:
+      execution_intent:
+        metrics_save_dir: "metrics_save_dir"
+        max_execution_time: "timeout"
+        quality_requirements:
+          success_rate_threshold: "success_rate_threshold"
+
+# Parameter validation rules
+parameter_validation:
+  # Required parameters for different operations
+  required_parameters:
+    experiment_execution:
+      - "model.model_intent.method"
+      - "dataset.data_intent.data_dir"
+      - "editing.intent.method"
+
+    script_execution:
+      - "editing_method"
+      - "hparams_dir"
+      - "data_dir"
+
+  # Parameter type validation
+  type_validation:
+    string_parameters:
+      - "editing_method"
+      - "hparams_dir"
+      - "data_dir"
+      - "metrics_save_dir"
+      - "device"
+
+    integer_parameters:
+      - "ds_size"
+      - "timeout"
+      - "batch_size"
+      - "seed"
+
+    boolean_parameters:
+      - "sequential_edit"
+      - "save_model"
+      - "debug_mode"
+      - "use_cache"
+
+    float_parameters:
+      - "success_rate_threshold"
+      - "learning_rate"
+      - "weight_decay"
+
+# Default values for optional parameters
+default_values:
+  # Common default values
+  common:
+    device: "0"
+    metrics_save_dir: "./results/metrics"
+    sequential_edit: false
+    seed: 42
+    timeout: 3600
+    success_rate_threshold: 0.8
+
+  # Method-specific defaults
+  method_specific:
+    ROME:
+      layer: "20"
+      max_length: 30
+      batch_size: 1
+
+    FT:
+      lr: 1e-5
+      batch_size: 1
+      epochs: 10
+
+    MEMIT:
+      layer: "20"
+      max_length: 30
+      batch_size: 1
+
+# Path resolution rules
+path_resolution:
+  # Base paths for different types of resources
+  base_paths:
+    hparams: "./hparams"
+    data: "./data"
+    results: "./results"
+    models: "./models"
+    logs: "./logs"
+
+  # Path resolution patterns
+  patterns:
+    hparams_pattern: "{base_hparams}/{method}/{model}"
+    data_pattern: "{base_data}/{dataset}"
+    results_pattern: "{base_results}/{experiment_id}"
+    logs_pattern: "{base_logs}/{experiment_id}"
+
+  # Path validation rules
+  validation:
+    check_existence: true
+    create_directories: true
+    resolve_relative_paths: true
+
+# Error handling and fallback strategies
+error_handling:
+  # Fallback methods when primary method fails
+  method_fallbacks:
+    ROME: ["FT", "MEMIT"]
+    MEMIT: ["ROME", "FT"]
+    FT: ["ROME", "MEMIT"]
+    MEND: ["SERAC", "FT"]
+    SERAC: ["MEND", "FT"]
+
+  # Fallback scripts when primary script fails
+  script_fallbacks:
+    run_zsre_llama2: ["run_knowedit_llama2", "run_wise_editing"]
+    run_knowedit_llama2: ["run_zsre_llama2", "run_wise_editing"]
+    run_wise_editing: ["run_zsre_llama2", "run_knowedit_llama2"]
+
+  # Error recovery strategies
+  recovery_strategies:
+    file_not_found: "search_alternative_paths"
+    permission_denied: "use_temp_directory"
+    memory_error: "reduce_batch_size"
+    timeout_error: "increase_timeout_or_reduce_complexity"
+
+# Configuration versioning and compatibility
+version_compatibility:
+  # Supported configuration versions
+  supported_versions:
+    - "1.0"
+    - "1.1"
+    - "1.2"
+
+  # Version-specific features
+  version_features:
+    "1.0":
+      - "basic_model_editing"
+      - "single_dataset_support"
+      - "limited_methods"
+
+    "1.1":
+      - "enhanced_parameter_mapping"
+      - "multi_dataset_support"
+      - "improved_error_handling"
+
+    "1.2":
+      - "intent_driven_configuration"
+      - "auto_discovery"
+      - "plugin_architecture"
+
+  # Migration paths between versions
+  migrations:
+    "1.0_to_1.1":
+      - "add_execution_intent_section"
+      - "update_parameter_mapping"
+      - "add_validation_rules"
+
+    "1.1_to_1.2":
+      - "add_model_intent_section"
+      - "add_dataset_intent_section"
+      - "enable_auto_discovery"
+
+# Performance optimization settings
+performance_optimization:
+  # Caching strategies
+  caching:
+    enable_config_caching: true
+    cache_ttl: 3600  # 1 hour
+    max_cache_size: 100
+
+  # Lazy loading
+  lazy_loading:
+    enable_lazy_loading: true
+    load_scripts_on_demand: true
+    preload_common_scripts: false
+
+  # Resource optimization
+  resource_optimization:
+    memory_efficient_loading: true
+    parallel_script_discovery: true
+    background_validation: true
+
+# Debugging and development settings
+debugging:
+  # Debug modes
+  debug_modes:
+    verbose: false
+    log_parameter_mapping: false
+    log_script_discovery: false
+    log_execution_trace: false
+
+  # Development utilities
+  development:
+    enable_script_validation: true
+    enable_parameter_validation: true
+    enable_path_validation: true
+    show_warnings: true
+    strict_mode: false
+
+  # Testing utilities
+  testing:
+    enable_mock_execution: false
+    enable_dry_run: true
+    enable_test_configurations: true

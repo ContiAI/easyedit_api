@@ -1,0 +1,336 @@
+# Example Configuration: Intent-Driven Model Editing
+# This demonstrates the power of the declarative framework with true extensibility
+
+experiment:
+  name: "intent_driven_knowledge_editing"
+  description: "Automatically discover optimal method, model, and dataset for knowledge editing"
+  version: "2.0"
+  author: "researcher_name"
+  tags: ["auto_discovery", "intent_driven", "extensible_framework"]
+
+# Environment configuration
+environment:
+  python_version: "3.9+"
+  device: "auto"  # Auto-discover best device
+  gpu_ids: "auto"  # Auto-discover available GPUs
+  seed: 42
+  workspace_dir: "./workspace"
+  results_dir: "./results"
+  logs_dir: "./logs"
+
+# Model intent - WHAT model capabilities we need
+model:
+  model_intent:
+    purpose: "knowledge_editing"
+    architecture_preference: "auto"
+    size_preference: "medium"
+    performance_requirements:
+      inference_speed: "medium"
+      memory_efficiency: "medium"
+      editing_compatibility: "high"
+
+  model_discovery:
+    auto_discover: true
+    discovery_sources:
+      local_paths:
+        - "./hugging_cache/"
+        - "./models/"
+      huggingface_hub:
+        - "meta-llama/Llama-2-7b-chat-hf"
+        - "microsoft/DialoGPT-medium"
+
+    selection_criteria:
+      compatibility_score: 0.8
+      performance_requirements:
+        min_parameters: "1B"
+        max_parameters: "20B"
+      hardware_requirements:
+        gpu_memory: "16GB"
+        system_memory: "32GB"
+
+  model_config:
+    universal_loading:
+      auto_detect_architecture: true
+      auto_configure_tokenizer: true
+      auto_optimize_loading: true
+      auto_select_quantization: true
+
+    hardware_optimization:
+      auto_quantization: true
+      auto_device_mapping: true
+      memory_optimization: true
+
+# Editing intent - WHAT editing we want to achieve
+editing:
+  intent:
+    goal: "knowledge_editing"
+    strategy: "precise_localization"
+    constraints:
+      locality_preservation: "high"
+      generalization: "medium"
+      computational_cost: "low"
+      training_required: false
+
+  method_selection:
+    preferred_method: "auto"  # Let system discover optimal method
+    method_candidates: []  # Consider all available methods
+    selection_criteria:
+      accuracy_weight: 0.7
+      speed_weight: 0.2
+      memory_weight: 0.1
+
+  method_config:
+    auto_discover: true
+    discovery_paths:
+      - "easyeditor/models/*/"
+      - "custom_methods/*/"
+
+    universal_parameters:
+      target_precision: "high"
+      edit_strength: 0.5
+      conservation_strength: 0.8
+      max_editing_time: 1800
+
+    architecture_adaptation:
+      auto_detect: true
+
+# Dataset intent - WHAT data we need
+dataset:
+  data_intent:
+    purpose: "knowledge_editing"
+    domain: "general_knowledge"
+    data_type: "structured_factual"
+    required_fields:
+      - "prompt"
+      - "target_new"
+      - "ground_truth"
+    optional_fields:
+      - "subject"
+      - "rephrase"
+
+  dataset_discovery:
+    auto_discover: true
+    discovery_sources:
+      local_paths:
+        - "./data/"
+        - "./datasets/"
+      remote_repositories: []
+
+    selection_criteria:
+      compatibility_score: 0.8
+      data_quality: "high"
+      size_preference: "medium"
+
+  dataset_config:
+    universal_preprocessing:
+      quality_filtering: true
+      deduplication: true
+      format_standardization: true
+
+    intent_preprocessing:
+      optimize_for_method: true
+      adaptive_length: true
+      batch_optimization: true
+
+  format_adaptation:
+    auto_detect_format: true
+    supported_formats:
+      - "json"
+      - "jsonl"
+      - "csv"
+      - "parquet"
+
+    schema_inference:
+      auto_infer_schema: true
+      field_mapping_strategy: "semantic"
+      confidence_threshold: 0.7
+
+# Execution intent - WHAT execution we want
+execution:
+  execution_intent:
+    goal: "successful_editing"
+    strategy: "adaptive"
+    quality_requirements:
+      success_rate: 0.95
+      quality_threshold: 0.8
+    efficiency_requirements:
+      max_execution_time: 3600
+      max_resource_usage: 0.8
+    robustness_requirements:
+      fault_tolerance: "standard"
+      retry_strategy: "adaptive"
+
+  universal_execution:
+    task_abstraction:
+      task_type: "auto"
+      task_complexity: "auto"
+      task_priority: "normal"
+
+    execution_strategies:
+      strategy_selection: "auto"
+      available_strategies:
+        - "sequential_execution"
+        - "parallel_execution"
+        - "adaptive_execution"
+
+    resource_abstraction:
+      resource_type: "auto"
+      resource_allocation: "auto"
+      scaling_strategy: "auto"
+
+  execution_optimization:
+    auto_optimization:
+      enabled: true
+      optimization_targets:
+        - "speed"
+        - "memory"
+        - "quality"
+
+    adaptive_execution:
+      enabled: true
+      adaptation_triggers:
+        - "performance_degradation"
+        - "resource_exhaustion"
+        - "quality_drop"
+
+# Universal parameter system - WHAT outcomes we want
+universal_parameters:
+  parameter_intent:
+    optimization_goal: "balanced"
+    editing_style: "conservative"
+    risk_tolerance: "medium"
+    experimentation_level: "standard"
+
+  parameter_abstraction:
+    performance_parameters:
+      precision_target: "auto"
+      speed_priority: "medium"
+      memory_efficiency: "medium"
+
+    quality_parameters:
+      edit_strength: "medium"
+      localization_precision: "medium"
+      generalization_ability: "medium"
+
+    robustness_parameters:
+      stability_weight: "medium"
+      consistency_weight: "medium"
+      fault_tolerance: "medium"
+
+  parameter_mapping:
+    auto_mapping:
+      enabled: true
+      mapping_strategy: "semantic"
+      confidence_threshold: 0.8
+
+    context_awareness:
+      method_context: true
+      model_context: true
+      dataset_context: true
+      hardware_context: true
+
+  parameter_optimization:
+    auto_optimization:
+      enabled: true
+      optimization_strategy: "bayesian"
+      optimization_budget: 100
+
+    multi_objective:
+      enabled: true
+      objectives:
+        - "accuracy"
+        - "speed"
+        - "memory"
+        - "stability"
+      objective_weights:
+        accuracy: 0.4
+        speed: 0.3
+        memory: 0.2
+        stability: 0.1
+
+# Plugin configuration - Extensible for any future components
+plugins:
+  plugin_management:
+    auto_discover_plugins: true
+    plugin_search_paths:
+      - "plugins/"
+      - "custom_plugins/"
+      - "community_plugins/"
+
+    plugin_lifecycle:
+      auto_load: true
+      auto_validate: true
+      auto_update: false
+      dependency_resolution: true
+
+# Monitoring and evaluation
+evaluation:
+  enabled: true
+  metrics:
+    - "reliability"
+    - "generalization"
+    - "locality"
+    - "portability"
+
+  monitoring:
+    track_progress: true
+    monitor_memory: true
+    error_handling: "graceful"
+    continue_on_error: false
+
+# Output configuration
+output:
+  save_results: true
+  results_format: "json"
+  save_model: false
+  log_level: "INFO"
+  log_to_file: true
+  log_to_console: true
+
+  save_checkpoint: true
+  checkpoint_dir: "./checkpoints"
+
+  metrics_save_dir: "./results/metrics"
+  edited_model_dir: "./results/edited_models"
+
+# Metadata
+metadata:
+  created_date: "2024-01-01"
+  modified_date: "2024-01-01"
+  experiment_id: "intent_driven_001"
+  parent_experiment: null
+
+  reproducibility:
+    save_config: true
+    save_environment: true
+    save_git_info: true
+
+  notes: "This configuration demonstrates the power of intent-driven model editing with automatic discovery of optimal methods, models, and datasets."
+
+# Advanced features
+advanced:
+  optimization:
+    mixed_precision: true
+    gradient_checkpointing: false
+    flash_attention: true
+    kernel_optimization: true
+
+  distributed:
+    enabled: false
+    backend: "nccl"
+    init_method: "env://"
+    world_size: 1
+    rank: 0
+
+    auto_scaling:
+      enabled: true
+      scaling_triggers:
+        - "resource_usage"
+        - "queue_length"
+
+  ai_optimization:
+    enabled: true
+    optimization_level: "aggressive"
+    learning_from_history: true
+    predictive_optimization: true
+    adaptive_parameter_tuning: true

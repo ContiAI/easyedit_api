@@ -1,0 +1,405 @@
+# Scripts Registry Template - Dynamic Discovery System
+# This file provides dynamic mapping between editing methods and execution scripts
+# New scripts are auto-discovered and can be registered without modifying this file
+
+# Core script registry based on EasyEdit's actual examples structure
+scripts:
+  # ZsRE LLaMA2 script - maps to examples/run_zsre_llama2.py
+  run_zsre_llama2:
+    # Basic information
+    path: "examples/run_zsre_llama2.py"
+    name: "ZsRE LLaMA2 Runner"
+    description: "General purpose editing script for ZsRE dataset on LLaMA models"
+    version: "1.0"
+    author: "EasyEdit Team"
+    maintainer: "EasyEdit Team"
+    license: "MIT"
+
+    # Compatibility matrix
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "MEND"
+      - "IKE"
+      - "KN"
+      - "LoRA"
+      - "GRACE"
+      - "SERAC"
+      - "AlphaEdit"
+      - "UltraEdit"
+
+    supported_datasets:
+      - "ZsRE"
+      - "WikiBio"
+      - "Counterfact"
+      - "WikiRecent"
+      - "KnowEdit"
+
+    supported_models:
+      - "llama-7b"
+      - "llama2-7b"
+      - "llama2-13b"
+      - "llama3-8b"
+
+    # Parameter interface
+    parameters:
+      required:
+        - "editing_method"
+        - "hparams_dir"
+        - "data_dir"
+
+      optional:
+        - "device"
+        - "metrics_save_dir"
+        - "results_dir"
+        - "sequential_edit"
+
+    # Command generation
+    command_template: "python {script_path} --editing_method={editing_method} --hparams_dir={hparams_dir} --data_dir={data_dir}"
+
+    # Dependencies and requirements
+    dependencies:
+      - "torch>=2.0.0"
+      - "transformers>=4.46.2"
+
+    validation:
+      check_model_path: true
+      check_data_path: true
+      check_hparams_path: true
+
+    # Auto-discovery metadata
+    discovery_patterns:
+      - "run_zsre_llama2.py"
+      - "run_*zsre*.py"
+      - "run_*llama*.py"
+
+  # KnowEdit LLaMA2 script - maps to examples/run_knowedit_llama2.py
+  run_knowedit_llama2:
+    path: "examples/run_knowedit_llama2.py"
+    name: "KnowEdit LLaMA2 Runner"
+    description: "Specialized script for KnowEdit dataset experiments"
+    version: "1.0"
+    author: "EasyEdit Team"
+    maintainer: "EasyEdit Team"
+    license: "MIT"
+
+    supported_methods:
+      - "ROME"
+      - "MEMIT"
+      - "FT"
+      - "MEND"
+      - "IKE"
+      - "KN"
+      - "LoRA"
+      - "GRACE"
+
+    supported_datasets:
+      - "KnowEdit"
+
+    supported_models:
+      - "llama-7b"
+      - "llama2-7b"
+
+    parameters:
+      required:
+        - "editing_method"
+        - "hparams_dir"
+        - "data_dir"
+
+      optional:
+        - "device"
+        - "metrics_save_dir"
+        - "results_dir"
+
+    command_template: "python {script_path} --editing_method={editing_method} --hparams_dir={hparams_dir} --data_dir={data_dir}"
+
+    dependencies:
+      - "torch>=2.0.0"
+      - "transformers>=4.46.2"
+
+    validation:
+      check_model_path: true
+      check_data_path: true
+      check_hparams_path: true
+
+    discovery_patterns:
+      - "run_knowedit_llama2.py"
+      - "run_*knowedit*.py"
+
+  # Additional scripts following the same pattern...
+  # SafeEdit, MMEdit, ConceptEdit, WISE, CKnowEdit scripts would follow same structure
+
+# Dynamic script discovery configuration
+discovery:
+  # Auto-discovery settings
+  enabled: true
+  scan_directories:
+    - "examples"
+    - "."
+
+  # Discovery patterns for automatic script detection
+  patterns:
+    # General run scripts
+    run_scripts:
+      pattern: "run_*.py"
+      priority: 1
+
+    # Method-specific scripts
+    method_scripts:
+      pattern: "run_{method}*.py"
+      priority: 2
+
+    # Dataset-specific scripts
+    dataset_scripts:
+      pattern: "run_*{dataset}*.py"
+      priority: 3
+
+    # Model-specific scripts
+    model_scripts:
+      pattern: "run_*{model}*.py"
+      priority: 4
+
+  # Validation rules for discovered scripts
+  validation:
+    # Required functions for script validation
+    required_functions:
+      - "main"
+      - "parse_args"
+
+    # Required imports for EasyEdit scripts
+    required_imports:
+      - "easyeditor"
+      - "BaseEditor"
+
+    # File structure validation
+    file_structure:
+      - "README.md"  # Documentation recommended
+      - "requirements.txt"  # Dependencies recommended
+
+# Script categories for organization
+categories:
+  general_purpose:
+    description: "General purpose editing scripts for multiple methods and datasets"
+    patterns: ["run_zsre*.py", "run_knowedit*.py"]
+
+  method_specific:
+    description: "Scripts specialized for specific editing methods"
+    patterns: ["run_{method}.py", "run_*{method}*.py"]
+
+  dataset_specific:
+    description: "Scripts designed for specific datasets"
+    patterns: ["run_*{dataset}.py", "run_safeedit.py", "run_conceptedit.py"]
+
+  model_specific:
+    description: "Scripts optimized for specific model families"
+    patterns: ["run_*llama*.py", "run_*gpt*.py"]
+
+  advanced:
+    description: "Advanced scripts with special features"
+    patterns: ["run_wise.py", "run_ultraedit*.py"]
+
+# Dynamic parameter mapping system
+parameter_mapping:
+  # Global mapping rules
+  global_mappings:
+    "editing_method": "editing_method"
+    "hparams_dir": "hparams_dir"
+    "data_dir": "data_dir"
+    "device": "device"
+    "metrics_save_dir": "metrics_save_dir"
+    "results_dir": "results_dir"
+
+  # Script-specific overrides
+  script_overrides:
+    run_zsre_llama2:
+      "sequential_edit": "sequential_edit"
+      "model_name": "model_name"
+
+    run_knowedit_llama2:
+      "dataset_name": "dataset_name"
+      "batch_size": "batch_size"
+
+    run_mmedit:
+      "image_dir": "image_dir"
+      "vision_model_path": "vision_model_path"
+
+  # Auto-discovery of parameters
+  auto_discovery:
+    enabled: true
+    scan_for_argparse: true
+    extract_from_docstrings: true
+    infer_from_hparams: true
+
+# Environment requirements system
+environment_requirements:
+  # Base requirements for all scripts
+  base:
+    python_version: ">=3.9"
+    required_packages:
+      - "torch>=2.0.0"
+      - "transformers>=4.46.2"
+      - "numpy>=1.22.1"
+      - "pandas>=1.4.0"
+      - "yaml>=6.0"
+      - "tqdm>=4.62.3"
+
+  # Category-specific requirements
+  category_requirements:
+    general_purpose:
+      - "scikit-learn>=1.0.2"
+      - "scipy>=1.7.3"
+
+    method_specific:
+      - "sentence-transformers>=3.2.1"
+
+    dataset_specific:
+      - "datasets>=1.18.3"
+
+    model_specific:
+      - "accelerate>=0.20.0"
+
+    advanced:
+      - "wandb>=0.15.0"
+      - "tensorboard>=2.13.0"
+
+  # GPU requirements
+  gpu_requirements:
+    cuda_version: ">=11.8"
+    cudnn_version: ">=8.0"
+    gpu_memory:
+      minimal: "8GB"
+      recommended: "16GB"
+      large_models: "24GB+"
+
+# Validation and quality assurance
+validation:
+  # File validation
+  file_checks:
+    - "script_exists"
+    - "executable_permissions"
+    - "syntax_check"
+
+  # Parameter validation
+  parameter_checks:
+    - "required_parameters_present"
+    - "parameter_types_valid"
+    - "parameter_ranges_valid"
+    - "file_paths_exist"
+
+  # Compatibility validation
+  compatibility_checks:
+    - "method_script_compatibility"
+    - "dataset_script_compatibility"
+    - "model_script_compatibility"
+    - "easyedit_version_compatibility"
+
+  # Runtime validation
+  runtime_checks:
+    - "gpu_memory_available"
+    - "model_files_exist"
+    - "dataset_files_exist"
+    - "hparams_files_exist"
+
+# Script execution profiles
+execution_profiles:
+  # Standard profile for most scripts
+  standard:
+    timeout: 3600
+    retry_count: 3
+    retry_delay: 60
+    memory_limit: "16GB"
+    cpu_limit: 4
+
+  # Fast profile for lightweight methods
+  fast:
+    timeout: 1800
+    retry_count: 2
+    retry_delay: 30
+    memory_limit: "8GB"
+    cpu_limit: 2
+
+  # Heavy profile for resource-intensive methods
+  heavy:
+    timeout: 7200
+    retry_count: 5
+    retry_delay: 120
+    memory_limit: "32GB"
+    cpu_limit: 8
+
+# Extension points for new scripts
+extensions:
+  # Script template for new script registration
+  script_template:
+    path: "examples/run_{script_name}.py"
+    name: "{script_display_name} Runner"
+    description: "{script_description}"
+    version: "1.0"
+    author: "EasyEdit Team"
+    maintainer: "EasyEdit Team"
+    license: "MIT"
+
+    supported_methods: []
+    supported_datasets: []
+    supported_models: []
+
+    parameters:
+      required: []
+      optional: []
+
+    command_template: "python {script_path}"
+    dependencies: []
+    validation: {}
+
+  # Batch registration for multiple scripts
+  batch_registration:
+    enabled: true
+    source_directories:
+      - "examples"
+    auto_discover: true
+    generate_profiles: true
+
+# Performance monitoring
+monitoring:
+  # Performance tracking
+  track_performance: true
+  log_execution_time: true
+  log_memory_usage: true
+  log_gpu_utilization: true
+
+  # Resource monitoring
+  monitor_resources:
+    cpu_usage: true
+    memory_usage: true
+    gpu_usage: true
+    disk_usage: true
+
+  # Alert thresholds
+  thresholds:
+    cpu_usage: 90
+    memory_usage: 90
+    gpu_usage: 95
+    disk_usage: 80
+
+# Debugging and development support
+debugging:
+  # Debug modes
+  debug_modes:
+    - "verbose"
+    - "dry_run"
+    - "validation_only"
+    - "performance_profile"
+
+  # Development utilities
+  development_tools:
+    script_generator: true
+    parameter_extractor: true
+    compatibility_checker: true
+    performance_profiler: true
+
+  # Logging configuration
+  logging:
+    log_level: "INFO"
+    log_format: "detailed"
+    log_to_file: true
+    log_to_console: true

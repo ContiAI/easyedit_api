@@ -1,0 +1,177 @@
+# Example: ROME Experiment on ZsRE Dataset
+# This is a practical example of how to configure a ROME editing experiment
+
+experiment:
+  name: "rome_zsre_llama2_experiment"
+  description: "ROME knowledge editing on LLaMA-2 using ZsRE dataset"
+  version: "1.0"
+  author: "researcher"
+  tags: ["ROME", "ZsRE", "LLaMA-2", "knowledge_editing"]
+
+# Environment configuration
+environment:
+  python_version: "3.9+"
+  device: "cuda"
+  gpu_ids: [0]
+  seed: 42
+  workspace_dir: "./workspace"
+  results_dir: "./results/rome_zsre"
+  logs_dir: "./logs/rome_zsre"
+
+# Model configuration
+model:
+  name: "llama-2-7b"
+  path: "./hugging_cache/llama-2-7b-chat"
+  type: "causal_lm"
+  tokenizer_path: "./hugging_cache/llama-2-7b-chat"
+  model_class: "LlamaForCausalLM"
+  tokenizer_class: "LlamaTokenizer"
+
+  load_in_8bit: false
+  load_in_4bit: false
+  device_map: "auto"
+  torch_dtype: "float16"
+
+# Editing method configuration
+editing:
+  method: "ROME"
+
+  hyperparameters:
+    # ROME specific parameters
+    layers: [5]
+    fact_token: "subject_last"
+    v_num_grad_steps: 25
+    v_lr: 0.5
+    v_loss_layer: 31
+    v_weight_decay: 0.001
+    clamp_norm_factor: 4
+    kl_factor: 0.0625
+    mom2_adjustment: false
+    context_template_length_params: [[5, 10], [10, 10]]
+    rewrite_module_tmp: "model.layers.{}.mlp.down_proj"
+
+    # Common parameters
+    stats_dir: "./data/stats"
+    mom2_dataset: "wikipedia"
+    mom2_n_samples: 100000
+    mom2_dtype: "float32"
+
+# Dataset configuration
+dataset:
+  name: "ZsRE"
+  path: "./data/zsre_mend_eval.json"
+  type: "json"
+
+  preprocessing:
+    max_length: 512
+    truncate: true
+    shuffle: true
+    seed: 42
+
+  field_mapping:
+    prompt: "prompt"
+    target_new: "target_new"
+    ground_truth: "ground_truth"
+    subject: "subject"
+    rephrase: "rephrase"
+
+# Execution configuration
+execution:
+  task_type: "single_edit"
+  mode: "sync"
+
+  resources:
+    gpu_memory_limit: "16GB"
+    cpu_cores: 4
+    timeout: 3600
+
+  parallel:
+    enabled: false
+    max_workers: 1
+    per_gpu_batch_size: 1
+
+# Evaluation configuration
+evaluation:
+  enabled: true
+  metrics:
+    - "reliability"
+    - "generalization"
+    - "locality"
+    - "portability"
+
+  eval_dataset:
+    path: "./data/zsre_mend_eval.json"
+
+  locality:
+    neighborhood:
+      enabled: true
+      prompts: []
+      ground_truth: []
+    distracting:
+      enabled: true
+      prompts: []
+      ground_truth: []
+
+  portability:
+    one_hop: true
+    subject_replace: true
+    inverse_relation: true
+
+# Output configuration
+output:
+  save_results: true
+  results_format: "json"
+  save_model: false
+  model_output_dir: "./edited_models"
+  log_level: "INFO"
+  log_to_file: true
+  log_to_console: true
+  save_checkpoint: true
+  checkpoint_dir: "./checkpoints"
+
+# Workflow configuration
+workflow:
+  sequential_edit: false
+  edit_dependencies: []
+  batch_processing:
+    enabled: false
+    batch_size: 10
+    shuffle_batch: true
+  conditions:
+    success_only: true
+    retry_on_failure: false
+    max_retries: 3
+
+# Monitoring and debugging
+monitoring:
+  track_progress: true
+  progress_interval: 10
+  monitor_memory: true
+  memory_threshold: "90%"
+  error_handling: "strict"
+  continue_on_error: false
+
+# Advanced settings
+advanced:
+  optimization:
+    mixed_precision: true
+    gradient_checkpointing: false
+    flash_attention: true
+  distributed:
+    enabled: false
+    backend: "nccl"
+    init_method: "env://"
+
+# Metadata
+metadata:
+  created_date: "2024-01-01"
+  modified_date: "2024-01-01"
+  experiment_id: "rome_zsre_001"
+  parent_experiment: null
+
+  reproducibility:
+    save_config: true
+    save_environment: true
+    save_git_info: true
+
+  notes: "This is an example configuration for ROME editing on ZsRE dataset using LLaMA-2 model"
