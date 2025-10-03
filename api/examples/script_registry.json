@@ -1,0 +1,699 @@
+{
+  "examples_dir": "E:/ContiAI/EasyEdit\\examples",
+  "scripts_count": 22,
+  "scripts": {
+    "run_adsedit": {
+      "name": "run_adsedit",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_adsedit.py",
+      "description": "GRACE_LLaVA_OneVision_VQA()",
+      "supported_methods": [
+        "SERAC",
+        "IKE",
+        "WISE",
+        "MEND",
+        "FT",
+        "GRACE"
+      ],
+      "supported_datasets": [
+        "CaptionDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [],
+      "optional_parameters": {}
+    },
+    "run_AKEW_both": {
+      "name": "run_AKEW_both",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_AKEW_both.py",
+      "description": "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\\n\\n{que}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n",
+      "supported_methods": [
+        "MEMIT",
+        "unkeARE",
+        "unke_ARE",
+        "ROME",
+        "unke",
+        "LoRA",
+        "AlphaEdit",
+        "FT_uns",
+        "MEND",
+        "LoRA_uns",
+        "FT_uns_",
+        "FT",
+        "LoRA_uns_",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "Results saved to: {result_path}",
+        "AKEWUnified",
+        "AKEWUnifiedDataset"
+      ],
+      "supported_models": [
+        "alpaca",
+        "qwen",
+        "llama",
+        "bert"
+      ],
+      "required_parameters": [
+        "data_type",
+        "editing_method",
+        "data_dir",
+        "model_path",
+        "ds_size",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "ds_size": 10000,
+        "batch_size": 1,
+        "sequential_edit": false,
+        "device": "cuda"
+      }
+    },
+    "run_AlphaEdit_editing": {
+      "name": "run_AlphaEdit_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_AlphaEdit_editing.py",
+      "description": "Script for MEMIT, ROME, AlphaEdit editing methods",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "AlphaEdit",
+        "WISE",
+        "GRACE",
+        "MEND",
+        "FT",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "w"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "data_type",
+        "editing_method",
+        "data_dir",
+        "output_dir",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "output_dir": "./outputs",
+        "ds_size": 3,
+        "sequential_edit": false
+      }
+    },
+    "run_ccks_SafeEdit_gpt2-xl": {
+      "name": "run_ccks_SafeEdit_gpt2-xl",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_ccks_SafeEdit_gpt2-xl.py",
+      "description": "Get predictions\n            predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)",
+      "supported_methods": [
+        "MEND",
+        "SafetyEdit",
+        "DINM",
+        "SafeEdit"
+      ],
+      "supported_datasets": [
+        "Safety",
+        "SafetyDataset",
+        "{args.editing_method}_{args.edited_llm} is done"
+      ],
+      "supported_models": [
+        "gpt2-xl",
+        "bert",
+        "gpt2"
+      ],
+      "required_parameters": [
+        "editing_method",
+        "data_dir",
+        "edited_llm",
+        "hparams_dir",
+        "safety_classifier_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output"
+      }
+    },
+    "run_CKnowEdit": {
+      "name": "run_CKnowEdit",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_CKnowEdit.py",
+      "description": "Script for MEMIT, ROME, SERAC editing methods",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "GRACE",
+        "MEND",
+        "CKnowEdit",
+        "KN",
+        "FT",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "CKnowEditDataset",
+        "w",
+        "CKnowEdit",
+        "KnowEditDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "editing_method",
+        "data_dir",
+        "api_key",
+        "ds_size",
+        "hparams_dir",
+        "chinese_ds_type"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "evaluation_type": "generate-text",
+        "ds_size": 10000
+      }
+    },
+    "run_concept_editing": {
+      "name": "run_concept_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_concept_editing.py",
+      "description": "True,\n        keep_original_weight=True\n    )\n\n    json.dump(metrics, open(os.path.join(args.metrics_save_dir, f'{args.editing_method}_results_{args.edited_model}_{module}.json'), 'w'), indent=4)\n\n\n    rewrite_acc = 0\n    rephrase_acc = 0\n    locality = 0\n    loc_list = []    \n    instance = 0\n    port_list = []\n    with open(os.path.join(args.metrics_save_dir, f'{args.editing_method}_results_{args.edited_model}_{module}.json'), \"r\") as f:\n        result = json.load(f)\n\n    for i, item in enumerate(result):\n        \n        case = item[\"post\"]",
+      "supported_methods": [
+        "MEMIT",
+        "FT",
+        "ConceptEdit",
+        "ROME"
+      ],
+      "supported_datasets": [
+        ",end="
+      ],
+      "supported_models": [
+        "gpt2-xl",
+        "mistral",
+        "gpt-j-6b",
+        "mistral-7b",
+        "gpt-j",
+        "llama",
+        "gpt2"
+      ],
+      "required_parameters": [
+        "hparams_dir",
+        "editing_method",
+        "data_dir",
+        "edited_model"
+      ],
+      "optional_parameters": {
+        "data_dir": "./data",
+        "metrics_save_dir": "./final_result_upload"
+      }
+    },
+    "run_convsent_llama2": {
+      "name": "run_convsent_llama2",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_convsent_llama2.py",
+      "description": "for editing\n    pos_template = \"From the sentiment dataset, answer {} postively.\"\n    neg_template = \"From the sentiment dataset, answer {} negatively.\"\n    subject = []\n    target_new = []\n    prompts = []\n\n    metric_kwargs = []",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "Zsre",
+        "w",
+        "ZsreDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "ds_size",
+        "hparams_dir",
+        "editing_method",
+        "data_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "ds_size": 10000
+      }
+    },
+    "run_Hallueditbench": {
+      "name": "run_Hallueditbench",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_Hallueditbench.py",
+      "description": "Enhanced evaluation function with stricter matching logic",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "HalluEditBench",
+        "MEND",
+        "KN",
+        "FT",
+        "GRACE"
+      ],
+      "supported_datasets": [],
+      "supported_models": [
+        "mistral-7b",
+        "mistral",
+        "llama",
+        "vicuna"
+      ],
+      "required_parameters": [
+        "data_size",
+        "data_path",
+        "editing_method",
+        "results_dir",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "eval_model_id": "/disk1/xuhaoming/models/llama3-8B-Instruct",
+        "results_dir": "./results",
+        "multi_turn": "sure"
+      }
+    },
+    "run_knowedit_llama2": {
+      "name": "run_knowedit_llama2",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_knowedit_llama2.py",
+      "description": "data_rome_counterfact['post'].keys()  dict_keys(['rewrite_acc', 'locality', 'portability'])\n        Edit_Succ_list=[data_rome_counterfact['post']['rewrite_acc'][0] for data_rome_counterfact in datas]\n        Edit_Succ=sum(Edit_Succ_list)/len(Edit_Succ_list)*100\n        print('Edit_Succ:',Edit_Succ)\n        \n        Portability_list=[]\n        for data_rome_counterfact in datas:\n            case_list=[]\n            for key in data_rome_counterfact['post']['portability'].keys():\n                case_list.append(sum(data_rome_counterfact['post']['portability'][key])/len(data_rome_counterfact['post']['portability'][key])*100)\n            if len(case_list) != 0:\n                Portability_list.append(np.mean(case_list))\n        Overall_portability = np.mean(Portability_list)\n        print('Overall_portability:',Overall_portability)\n\n        Locality_list=[]\n        for data_rome_counterfact in datas:\n            case_list=[]\n            for key in data_rome_counterfact['post']['locality'].keys():\n                case_list.append(sum(data_rome_counterfact['post']['locality'][key])/len(data_rome_counterfact['post']['locality'][key])*100)\n            if len(case_list) != 0:\n                Locality_list.append(np.mean(case_list))\n        Overall_locality = np.mean(Locality_list)\n        print('Overall_locality:',Overall_locality)\n        \n        Fluency_list=[x['post']['fluency']['ngram_entropy'] for x in datas]\n        Fluency=sum(Fluency_list)/len(Fluency_list)*100\n        print('Fluency:',Fluency)\n\n\n\nif __name__ == \"__main__\":\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--editing_method', required=True, type=str)\n    parser.add_argument('--hparams_dir', required=True, type=str)\n    parser.add_argument('--data_dir', required=True, type=str)\n    parser.add_argument('--ds_size', default=None, type=int)\n    parser.add_argument('--metrics_save_dir', default='./output', type=str)\n    parser.add_argument('--datatype', default=None,type=str)\n    parser.add_argument('--train_data_path', type=str)\n    parser.add_argument('--pre_file', default='./seq_pre.json', type=str)\n\n    args = parser.parse_args()\n\n    if args.editing_method == 'FT':\n        editing_hparams = FTHyperParams\n    elif args.editing_method == 'IKE':\n        editing_hparams = IKEHyperParams\n    elif args.editing_method == 'ICE':\n        editing_hparams = IKEHyperParams\n    elif args.editing_method == 'KN':\n        editing_hparams = KNHyperParams\n    elif args.editing_method == 'MEMIT':\n        editing_hparams = MEMITHyperParams\n    elif args.editing_method == 'ROME':\n        editing_hparams = ROMEHyperParams\n    elif args.editing_method == 'LoRA':\n        editing_hparams = LoRAHyperParams\n    elif args.editing_method == 'SERAC':\n        editing_hparams = SERACHparams\n    elif args.editing_method == 'MEND':\n        editing_hparams = MENDHyperParams\n    else:\n        raise NotImplementedError\n    \n\n    datas = KnowEditDataset(args.data_dir,size=args.ds_size)\n    if args.datatype == 'counterfact' or args.datatype == 'recent' or args.datatype == 'zsre':\n        prompts=[data['prompt'] for data in datas]\n        subjects=[data['subject'] for data in datas]\n        target_new = [data['target_new'] for data in datas]\n        \n        portability_r =[data['portability_r'] for data in datas]\n        portability_s =[data['portability_s'] for data in datas]\n        portability_l =[data['portability_l'] for data in datas]\n\n        portability_reasoning_prompts=[]\n        portability_reasoning_ans=[]\n        portability_Logical_Generalization_prompts=[]\n        portability_Logical_Generalization_ans=[]\n        portability_Subject_Aliasing_prompts=[]\n        portability_Subject_Aliasing_ans=[]\n        \n        portability_data = [portability_r,portability_s,portability_l]\n        portability_prompts = [portability_reasoning_prompts,portability_Subject_Aliasing_prompts,portability_Logical_Generalization_prompts]\n        portability_answers = [portability_reasoning_ans,portability_Subject_Aliasing_ans,portability_Logical_Generalization_ans]\n        for data, portable_prompts, portable_answers in zip(portability_data,portability_prompts,portability_answers):\n            for item in data:\n                if item is None:\n                    portable_prompts.append(None)\n                    portable_answers.append(None)\n                else:\n                    temp_prompts = []\n                    temp_answers = []\n                    for pr in item:\n                        prompt=pr[\"prompt\"]\n                        an=pr[\"ground_truth\"]\n                        while isinstance(an,list):\n                            an = an[0]\n                        if an.strip() ==\"\":\n                            continue\n                        temp_prompts.append(prompt)\n                        temp_answers.append(an)\n                    portable_prompts.append(temp_prompts)\n                    portable_answers.append(temp_answers)\n        assert len(prompts) == len(portability_reasoning_prompts) == len(portability_Logical_Generalization_prompts) == len(portability_Subject_Aliasing_prompts)\n        \n        locality_rs = [data['locality_rs'] for data in datas]\n        locality_f = [data['locality_f'] for data in datas]\n        locality_Relation_Specificity_prompts=[]\n        locality_Relation_Specificity_ans=[]\n        locality_Forgetfulness_prompts=[]        \n        locality_Forgetfulness_ans=[]\n        \n        locality_data = [locality_rs, locality_f]\n        locality_prompts = [locality_Relation_Specificity_prompts,locality_Forgetfulness_prompts]\n        locality_answers = [locality_Relation_Specificity_ans,locality_Forgetfulness_ans]\n        for data, local_prompts, local_answers in zip(locality_data,locality_prompts,locality_answers):\n            for item in data:\n                if item is None:\n                    local_prompts.append(None)\n                    local_answers.append(None)\n                else:\n                    temp_prompts = []\n                    temp_answers = []\n                    for pr in item:\n                        prompt=pr[\"prompt\"]\n                        an=pr[\"ground_truth\"]\n                        while isinstance(an,list):\n                            an = an[0]\n                        if an.strip() ==\"\":\n                            continue\n                        temp_prompts.append(prompt)\n                        temp_answers.append(an)\n                    local_prompts.append(temp_prompts)\n                    local_answers.append(temp_answers)\n        assert len(prompts) == len(locality_Relation_Specificity_prompts) == len(locality_Forgetfulness_prompts)\n        locality_inputs = {}\n        portability_inputs = {}\n        \n        locality_inputs = {\n            'Relation_Specificity':{\n                'prompt': locality_Relation_Specificity_prompts,\n                'ground_truth': locality_Relation_Specificity_ans\n            },\n            'Forgetfulness':{\n                'prompt':locality_Forgetfulness_prompts,\n                'ground_truth':locality_Forgetfulness_ans\n            }\n        }\n        portability_inputs = {\n            'Subject_Aliasing':{\n                'prompt': portability_Subject_Aliasing_prompts,\n                'ground_truth': portability_Subject_Aliasing_ans\n            },\n            'reasoning':{\n                'prompt': portability_reasoning_prompts,\n                'ground_truth': portability_reasoning_ans           \n            },\n            'Logical_Generalization':{\n                'prompt': portability_Logical_Generalization_prompts,\n                'ground_truth': portability_Logical_Generalization_ans           \n            }\n        }\n    if args.datatype == 'wikibio':\n        prompts=[data['prompt'] for data in datas]\n        subjects=[data['subject'] for data in datas]\n        target_new = [data['target_new'] for data in datas]\n        \n        locality_rs = [data['locality_rs'] for data in datas]\n        locality_f = [data['locality_f'] for data in datas]\n        locality_Relation_Specificity_prompts=[]\n        locality_Relation_Specificity_ans=[]\n        \n        locality_data = [locality_rs]\n        locality_prompts = [locality_Relation_Specificity_prompts]\n        locality_answers = [locality_Relation_Specificity_ans]\n        for data, local_prompts, local_answers in zip(locality_data,locality_prompts,locality_answers):\n            for item in data:\n                if item is None:\n                    local_prompts.append(None)\n                    local_answers.append(None)\n                else:\n                    temp_prompts = []\n                    temp_answers = []\n                    for pr in item:\n                        prompt=pr[\"prompt\"]\n                        an=pr[\"ground_truth\"]\n                        while isinstance(an,list):\n                            an = an[0]\n                        if an.strip() ==\"\":\n                            continue\n                        temp_prompts.append(prompt)\n                        temp_answers.append(an)\n                    local_prompts.append(temp_prompts)\n                    local_answers.append(temp_answers)\n        assert len(prompts) == len(locality_Relation_Specificity_prompts)\n        portability_inputs = None\n        locality_inputs = {}\n        locality_inputs = {\n            'Relation_Specificity':{\n                'prompt': locality_Relation_Specificity_prompts,\n                'ground_truth': locality_Relation_Specificity_ans\n            }\n        }",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "KnowEdit",
+        "w",
+        "KnowEditDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "editing_method",
+        "data_dir",
+        "ds_size",
+        "datatype",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "pre_file": "./seq_pre.json",
+        "ds_size": 10000
+      }
+    },
+    "run_LLM_evaluation": {
+      "name": "run_LLM_evaluation",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_LLM_evaluation.py",
+      "description": "LLM-as-a-Judge\n    hparams.evaluation_type = args.evaluation_type\n    hparams.api_key = args.api_key\n    if args.editing_method == 'IKE':\n        train_ds = KnowEditDataset(args.train_data_path)\n        sentence_model = SentenceTransformer(hparams.sentence_model_name).to(f'cuda:{hparams.device}')\n        encode_ike_facts(sentence_model, train_ds, hparams)\n    elif args.editing_method == 'ICE':\n        hparams.use_icl_examples = False\n        train_ds = None\n    else:\n        train_ds = None\n    editor = BaseEditor.from_hparams(hparams)\n    \n    metrics, edited_model, _ = editor.edit(\n        prompts=prompts,\n        target_new=target_new,\n        subject=subjects,\n        locality_inputs=locality_inputs,\n        portability_inputs=portability_inputs,\n        train_ds=train_ds,\n        keep_original_weight=True,\n        test_generation=True,\n    )\n\n    os.makedirs(args.output_dir, exist_ok=True)\n    output_file = os.path.join(\n        args.output_dir,\n        f'{hparams.model_name.split(\"/\")[-1]}_{args.editing_method}_N={args.ds_size}_Sequential={args.sequential_edit}.json'\n    )\n\n    print(\"See results at: \", output_file)\n\n    with open(output_file, 'w') as f:\n        json.dump(metrics, f, indent=4)",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "AlphaEdit",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "KnowEdit",
+        "w",
+        "KnowEditDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "editing_method",
+        "data_dir",
+        "api_key",
+        "ds_size",
+        "output_dir",
+        "datatype",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "output_dir": "./outputs",
+        "sequential_edit": false,
+        "evaluation_type": "LLM-judge",
+        "ds_size": 10000
+      }
+    },
+    "run_longform": {
+      "name": "run_longform",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_longform.py",
+      "description": "portability_inputs=portability_inputs,\n        subject = subject,\n        keep_original_weight=True,\n        sequential_edit=args.sequential_edit\n    )\n    if not os.path.exists(args.metrics_save_dir):\n        os.makedirs(args.metrics_save_dir)        \n    result_path = os.path.join(args.metrics_save_dir, f'{args.editing_method}_{hparams.model_name.split(\"/\")[-1]}_LongForm_{args.dataset_type}_results.json')\n    json.dump(metrics, open(result_path, 'w'), indent=4)\n    print(f\"Results saved to: {result_path}\")\n    eval_longform(result_path, args.dataset_type)",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "LoRA",
+        "AlphaEdit",
+        "GRACE",
+        "MEND",
+        "FT",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "Results saved to: {result_path}",
+        "LongFormEditDataset",
+        "LongFormEdit"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "ds_size",
+        "hparams_dir",
+        "editing_method",
+        "data_dir"
+      ],
+      "optional_parameters": {
+        "dataset_type": "zsre",
+        "metrics_save_dir": "./output",
+        "ds_size": 10000,
+        "sequential_edit": false
+      }
+    },
+    "run_personality_editing": {
+      "name": "run_personality_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_personality_editing.py",
+      "description": "setting your own apikey for pae evaluation\n\n\ndef train_run_MEND(data_dir, hparams_path):\n    \n    training_hparams = MENDTrainingHparams.from_hparams(hparams_path)\n    train_ds = PersonalityDataset(os.path.join(data_dir, './PersonalityEdit/train.json'), config=training_hparams)\n    eval_ds = PersonalityDataset(os.path.join(data_dir, './PersonalityEdit/val.json'), config=training_hparams)\n    trainer = PEREditTrainer(\n        config=training_hparams,\n        train_set=train_ds,\n        val_set=eval_ds\n    )\n    trainer.run()\n        \n    \ndef test_run_MEND(data_dir, hparams_path):\n    hparams = MENDHyperParams.from_hparams(hparams_path)\n    eval_ds = PersonalityDataset(os.path.join(data_dir, './PersonalityEdit/test.json'), config=hparams)\n    editor = PerEditor.from_hparams(hparams)\n    metrics, _, _ = editor.edit_dataset(\n        ds=eval_ds,\n        keep_original_weight=True        \n    )\n    return metrics\n\n    \n    \ndef edit_IKE(data_dir, hparams_path):\n    hparams = IKEHyperParams.from_hparams(hparams_path)\n    eval_ds = PersonalityDataset(os.path.join(data_dir, './PersonalityEdit/test.json'), config=hparams)\n    editor = PerEditor.from_hparams(hparams)\n    metrics, edited_model, _ = editor.edit_dataset(\n        ds=eval_ds,\n        keep_original_weight=True        \n    )\n    return metrics\n\n\ndef PAE(pre_text, edit_text, target_per, retry=4, coherent=True):\n    \n    if not coherent: \n        return {\n        \"pre_gpt_score\": None,\n        \"edit_gpt_score\": None,\n        \"pae\": None\n    }\n\n    def call_gpt4(text):\n        while True:\n            try:\n                response=openai.ChatCompletion.create(\n                    model=\"gpt-4-0613\",\n                    messages=[\n                            {\"role\": \"user\", \"content\": text }\n                        ], \n                    temperature=0,\n                    max_tokens=1 \n                    )\n                break\n            except Exception as e:\n                print(e)\n\n        score = response[\"choices\"][0][\"message\"][\"content\"]\n        cost = response[\"usage\"][\"total_tokens\"]\n        score = int(score) if score in [\"1\", \"2\", \"3\", \"4\", \"5\"] else -1\n        \n        return score, cost\n    \n    prompt_dict = {\n        \"extraversion\": \"Respond to match this description.\\nPersona Description: I can be described as a person with one or more adjectives in friendly, extraverted, talkative, bold, assertive, active, energetic, adventurous and daring, cheerful.\\nEvaluating the opinion: \\\"{}\\\"\\nhow accurately the opinion mathes the description, please rate a scale in [1,2,3,4,5] (where 1 = `very inaccurate`, 2 = `moderately inaccurate`, 3 = `neither accurate nor inaccurate`, 4 = `moderately accurate`, and 5 = `very accurate`):\",\n        \"agreeableness\": \"Respond to match this description.\\nPersona Description: I can be described as a person with one or more adjectives in trustful, dishonest, honest, altruistic, generous, cooperative, humble, sympathetic, unselfish, agreeable.\\nEvaluating the opinion: \\\"{}\\\"\\nhow accurately the opinion mathes the description, please rate a scale in [1,2,3,4,5] (where 1 = `very inaccurate`, 2 = `moderately inaccurate`, 3 = `neither accurate nor inaccurate`, 4 = `moderately accurate`, and 5 = `very accurate`):\",\n        \"neuroticism\": \"Respond to match this description.\\nPersona Description: I can be described as a person with one or more adjectives in tense, nervous, anxious, angry, irritable, depressed, self-conscious, impulsive, discontented, emotionally unstable.\\nEvaluating the opinion: \\\"{}\\\"\\nhow accurately the opinion mathes the description, please rate a scale in [1,2,3,4,5] (where 1 = `very inaccurate`, 2 = `moderately inaccurate`, 3 = `neither accurate nor inaccurate`, 4 = `moderately accurate`, and 5 = `very accurate`):\"\n    }\n    \n    prompt = prompt_dict[target_per]\n    for i in range(retry):\n        pre_score, _ = call_gpt4(prompt.format(pre_text))\n        if pre_score != -1: break\n        pre_score = None\n                \n    for i in range(retry):\n        edit_score, _ = call_gpt4(prompt.format(edit_text))\n        if edit_score != -1: break\n        edit_score = None\n            \n    result = {\n        \"pre_gpt_score\": pre_score,\n        \"edit_gpt_score\": edit_score,\n        \"pae\": edit_score-pre_score\n    }\n    \n    return result\n    \n    \ndef TPEI(model, tokenizer, pre_text, edit_text, target_per, coherent=True):\n    \n    if not coherent: return {\"acc\": None, \"tpei\":None}\n    \n    device = model.device\n    label_to_id = {\"neuroticism\":0, \"agreeableness\":1, \"extraversion\":2}\n    pre_text_input = tokenizer(pre_text, padding=\"max_length\", max_length=128, truncation=True, return_tensors=\"pt\",).to(device)\n    edit_text_input = tokenizer(edit_text, padding=\"max_length\", max_length=128, truncation=True, return_tensors=\"pt\",).to(device)\n    label = label_to_id[target_per]\n    pre_text_input[\"labels\"] = torch.tensor([label], dtype=torch.long).to(device)\n    edit_text_input[\"labels\"] = torch.tensor([label], dtype=torch.long).to(device)\n    \n    with torch.no_grad():\n        pre_output = model(**pre_text_input)\n        edit_output = model(**edit_text_input)\n        prediction = torch.argmax(torch.nn.functional.softmax(edit_output.logits, dim=-1)).item()\n        tpsi = pre_output.loss.item() - edit_output.loss.item()\n        acc = int(label==prediction)\n    \n    return {\n        \"acc\": acc,\n        \"tpei\": tpsi\n    }\n\n\nif __name__ == \"__main__\":\n\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--editing_method', required=True, type=str)\n    parser.add_argument('--hparams_path', required=True, type=str)\n    parser.add_argument('--data_dir', required=True, type=str)\n    parser.add_argument('--metric_file', default=None, type=str)\n    parser.add_argument('--TPEI', action=\"store_true\")\n    parser.add_argument('--PAE', action=\"store_true\")\n    parser.add_argument('--cls_path', default=None, type=str)\n    args = parser.parse_args()\n\n\n    if args.editing_method == 'IKE':\n        edit_func = edit_IKE\n    elif args.editing_method == 'MEND_train':\n        edit_func = train_run_MEND\n    elif args.editing_method == 'MEND_test':\n        edit_func = test_run_MEND\n    else:\n        raise NotImplementedError\n    \n    \n    if not args.metric_file:\n        metrics = edit_func(args.data_dir, args.hparams_path)\n        if \"train\" not in args.editing_method:\n            json.dump(metrics, open(f\"./{args.editing_method}_metrics.json\", \"w\"), ensure_ascii=False, indent=4)\n    else:\n        metrics = json.load(open(args.metric_file))\n    \n    if args.TPEI:\n        assert args.cls_path is not None\n        model = AutoModelForSequenceClassification.from_pretrained(args.cls_path).to(\"cuda\")\n        tokenizer = AutoTokenizer.from_pretrained(args.cls_path)\n        model.eval()\n        for metric in metrics:\n            metric.update(TPEI(\n                model=model,\n                tokenizer=tokenizer,\n                pre_text=metric[\"pre_text\"],\n                edit_text=metric[\"edit_text\"],\n                target_per=metric[\"target_per\"],\n                coherent=metric[\"coherent\"]",
+      "supported_methods": [
+        "MEND",
+        "IKE",
+        "PersonalityEdit"
+      ],
+      "supported_datasets": [
+        "{met}:{np.mean(mets)}",
+        "Personality",
+        "PersonalityDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "cls_path",
+        "hparams_path",
+        "editing_method",
+        "data_dir",
+        "metric_file"
+      ],
+      "optional_parameters": {}
+    },
+    "run_safety_editing": {
+      "name": "run_safety_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_safety_editing.py",
+      "description": "Get predictions\n            predictions = torch.nn.functional.softmax(outputs.logits, dim=-1)",
+      "supported_methods": [
+        "MEND",
+        "SafetyEdit",
+        "DINM",
+        "SafeEdit"
+      ],
+      "supported_datasets": [
+        "Safety",
+        "SafetyDataset",
+        "{args.editing_method}_{args.edited_model} is done "
+      ],
+      "supported_models": [
+        "gpt2-xl",
+        "mistral",
+        "mistral-7b",
+        "bert",
+        "llama",
+        "gpt2",
+        "llama-7b"
+      ],
+      "required_parameters": [
+        "editing_method",
+        "data_dir",
+        "hparams_dir",
+        "safety_classifier_dir",
+        "edited_model"
+      ],
+      "optional_parameters": {
+        "data_dir": "../data",
+        "metrics_save_dir": "../results"
+      }
+    },
+    "run_santinization_llama2": {
+      "name": "run_santinization_llama2",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_santinization_llama2.py",
+      "description": "1. Determine if there is a cache, if so, load it directly 2. If there is no cache, load the model, then decode the questions in the test set, and store the answers in a key-value format 3. If replacement is needed, then replace",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "SanitizationTrainDataset",
+        "w",
+        "ZsreDataset",
+        "Zsre",
+        "SanitizationTrain"
+      ],
+      "supported_models": [
+        "llama",
+        "llama-7b"
+      ],
+      "required_parameters": [
+        "hparams_dir",
+        "editing_method",
+        "data_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "specify_answer": "all"
+      }
+    },
+    "run_ultraedit_editing": {
+      "name": "run_ultraedit_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_ultraedit_editing.py",
+      "description": "Script for WISE, FT, UltraEdit editing methods",
+      "supported_methods": [
+        "WISE",
+        "FT",
+        "UltraEdit",
+        "AlphaEdit"
+      ],
+      "supported_datasets": [
+        "w"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "data_type",
+        "editing_method",
+        "data_dir",
+        "output_dir",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "output_dir": "./outputs",
+        "ds_size": 100,
+        "batch_size": 100,
+        "sequential_edit": false
+      }
+    },
+    "run_WikiBigEdit": {
+      "name": "run_WikiBigEdit",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_WikiBigEdit.py",
+      "description": "Script for MEMIT, ROME, LoRA editing methods",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "LoRA",
+        "AlphaEdit",
+        "GRACE",
+        "WikiBigEdit",
+        "FT",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "w",
+        "WikiBigEdit",
+        "WikiBigEditDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "ds_size",
+        "hparams_dir",
+        "editing_method",
+        "data_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "ds_size": 10000,
+        "sequential_edit": false
+      }
+    },
+    "run_wise_editing": {
+      "name": "run_wise_editing",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_wise_editing.py",
+      "description": "Script for MEMIT, ROME, WISE editing methods",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "WISE",
+        "GRACE",
+        "MEND",
+        "FT",
+        "Grace"
+      ],
+      "supported_datasets": [
+        "w"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "data_type",
+        "editing_method",
+        "data_dir",
+        "output_dir",
+        "hparams_dir"
+      ],
+      "optional_parameters": {
+        "output_dir": "./outputs",
+        "ds_size": 3,
+        "sequential_edit": false
+      }
+    },
+    "run_zsre_llama2": {
+      "name": "run_zsre_llama2",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\run_zsre_llama2.py",
+      "description": "Script for MEMIT, ROME, SERAC editing methods",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "Zsre",
+        "w",
+        "ZsreDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "ds_size",
+        "hparams_dir",
+        "editing_method",
+        "data_dir"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "ds_size": 10000
+      }
+    },
+    "test_detoxify_generate_for_NLPCC": {
+      "name": "test_detoxify_generate_for_NLPCC",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\test_detoxify_generate_for_NLPCC.py",
+      "description": "Load model, tokenizer.",
+      "supported_methods": [
+        "SafeEdit"
+      ],
+      "supported_datasets": [
+        "test is all done"
+      ],
+      "supported_models": [
+        "llama"
+      ],
+      "required_parameters": [
+        "suffix_system_prompt",
+        "data_dir",
+        "edited_LLM_ckpt",
+        "tok_ckpt",
+        "results_save_dir"
+      ],
+      "optional_parameters": {
+        "data_dir": "./data/SafeEdit_test_ALL.json",
+        "max_output_length": 600,
+        "batch_size": 1
+      }
+    },
+    "test_InstructEdit": {
+      "name": "test_InstructEdit",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\test_InstructEdit.py",
+      "description": "The last one for testing instruction generality.\n            ],\n        \"counterfact\": \n            [\n                \"A dataset designed to challenge and assess models on their ability to capture often overlooked tail entities.\",\n                \"A test set for measuring how well models can identify and deal with less common or 'tail' entities.\",\n                \"A benchmarking tool that helps evaluate the effectiveness of model editing methods in recognizing rare entities.\",\n                \"A dataset that provides a critical look at how well models can edit and update their methods to include tail entities.\",\n                \"An evaluation dataset focused on the model's ability to handle entities that are often missed in predictions.\",\n                \"A dataset that provides a way to test the robustness of models against the challenge of detecting tail entities.\",\n                \"A specialized dataset for gauging the performance of models in identifying entities typically neglected in data processing.\",\n                \"A testbed for analyzing the adaptability of models to identify and incorporate frequently missed tail entities.\",\n                \"An assessment dataset that targets the weak spots of models in detecting and incorporating tail entities.\",\n                \"A dataset curated to push the boundaries of model's capabilities in recognizing and processing tail entities.\",\n                ],\n        \"wikirecent\": \n            [\n                \"A curated collection of the latest factual relationships added to WikiData.\",\n                \"An up-to-date dataset for keeping models informed with the newest WikiData entries.\",\n                \"A dynamic repository capturing the newest edits and additions to WikiData entities.\",\n                \"A dataset designed to reflect the latest knowledge graph updates on WikiData.\",\n                \"A continuous feed of WikiData's latest verified triplets for data enrichment.\",\n                \"A specialized dataset aimed at integrating recent WikiData updates into models.\",\n                \"A streamlined dataset offering the most recent WikiData additions for machine learning.\",\n                \"A contemporary dataset serving the latest WikiData contributions for real-time updating.\",\n                \"A regularly updated dataset that captures the evolving landscape of WikiData's knowledge graph.\",\n                \"A dataset focusing on the integration of newly verified factual data from WikiData.\",\n                ],\n          \"zsre\": \n              [\n                  \"A dataset aimed at answering questions without context, focusing solely on the relationship between subjects and objects.\",\n                  \"A collection for developing AI that can deduce correct objects based on given subjects and their relations.\",\n                  \"A question-answering resource that challenges models to identify objects from specified subjects and relations.\",\n                  \"A dataset designed to test a model's ability to connect subjects and relations to their rightful objects.\",\n                  \"An evaluation tool for assessing how well a model can infer objects from a given subject-relation pair.\",\n                  \"A benchmark dataset for validating the accuracy of models in providing objects for stated subjects and relations.\",\n                  \"A dataset facilitating the assessment of models' capacity to answer questions based on subject-relation prompts.\",\n                  \"A tool for measuring a model's proficiency in identifying objects based on their relationship with a subject.\",\n                  \"A dataset tailored for training models to autonomously find correct objects from given subjects and relations.\",\n                  \"A dataset for driving the development of AI that can predict objects given a subject and its relation.\",\n              ]\n        }\n    \n    if args.inst_index is not None:\n        description = desc[args.data_type][int(args.inst_index)]\n    else:\n        description = random.choice(desc[args.data_type])\n    template = temp.format(args.data_type, description, \"{}\")\n    if \"prompt\" in test_data[0].keys():\n        if args.editing_method.lower() == 'instructedit':\n            prompts = [template.format(test_data_['prompt']) for test_data_ in test_data]\n            rephrase_prompts = [template.format(edit_data_['rephrase']) \\\n                                if 'rephrase' in edit_data_.keys() else template.format(edit_data_['prompt']) for edit_data_ in test_data] \n        else:\n            prompts = [test_data_['prompt'] for test_data_ in test_data]\n            rephrase_prompts = [edit_data_['rephrase'] if 'rephrase' in edit_data_.keys() else edit_data_['prompt'] for edit_data_ in test_data]  \n        \n        target_new = [edit_data_['target_new'] for edit_data_ in test_data]\n        locality_inputs = [edit_data_['locality'] for edit_data_ in test_data]\n        portability_inputs = [edit_data_['portability'] for edit_data_ in test_data]\n        subject = [edit_data_['subject'] for edit_data_ in test_data]\n    elif \"src\" in test_data[0].keys():\n        if args.editing_method.lower() == 'instructedit':\n            prompts = [template.format(test_data_['src']) for test_data_ in test_data]\n            rephrase_prompts = [template.format(edit_data_['rephrase']) for edit_data_ in test_data]  \n            portability_inputs = [{'prompt': template.format(edit_data_['portability']['New Question']), 'ground_truth': edit_data_['portability']['New Answer']} for edit_data_ in test_data]\n        else:\n            prompts = [test_data_['src'] for test_data_ in test_data]\n            rephrase_prompts = [edit_data_['rephrase'] for edit_data_ in test_data] \n            portability_inputs = [{'prompt': edit_data_['portability']['New Question'], 'ground_truth': edit_data_['portability']['New Answer']} for edit_data_ in test_data] \n        \n        target_new = [edit_data_['alt'] for edit_data_ in test_data]\n        locality_inputs = [{'prompt': edit_data_['loc'], 'ground_truth': edit_data_['loc_ans']} for edit_data_ in test_data]\n        subject = [edit_data_['subject'] for edit_data_ in test_data]        \n    \n    \n    hparams = editing_hparams.from_hparams(args.hparams_dir)\n    requests = [{\n            'prompt': prompt,\n            'target_new': target_new_,\n            'ground_truth': target_new_,\n            'subject': subject_,\n            'rephrase_prompt': rephrase_,\n            'portability': {},\n            'locality': {}\n        }\n    for prompt, subject_, target_new_, rephrase_ in zip(prompts, subject, target_new, rephrase_prompts)\n    ]\n    print(len(requests))\n            \n    if \"prompt\" in test_data[0].keys():\n        for i, request in enumerate(requests):\n            locality_item = locality_inputs[i]\n            for locality_key in locality_item.keys():\n                prompts = [x['prompt'] for x in locality_item[locality_key]]\n                ground_truth = [x['ground_truth'][0][0] for x in locality_item[locality_key]]\n                request['locality'].update(\n                    {\n                        locality_key: {\n                            f'prompt': prompts,\n                            f'ground_truth': ground_truth\n                        }\n                    }\n                )\n            portability_item = portability_inputs[i]\n            for portability_key in portability_item.keys():\n                if args.editing_method.lower() == 'instructedit':\n                    prompts = [template.format(x['prompt']) for x in portability_item[portability_key]]\n                else:\n                    prompts = [x['prompt'] for x in portability_item[portability_key]]\n                ground_truth = [x['ground_truth'][0][0] for x in portability_item[portability_key]]\n                request['portability'].update(\n                    {\n                        portability_key: {\n                            f'prompt': prompts,\n                            f'ground_truth': ground_truth\n                        }\n                    }\n                )\n    elif \"src\" in test_data[0].keys():\n        for i, request in enumerate(requests):\n            locality_item = locality_inputs[i]\n            prompts = locality_item['prompt']\n            ground_truth = locality_item['ground_truth']\n            request['locality'].update(\n                {\n                    \"locality\": {\n                        f'prompt': prompts,\n                        f'ground_truth': ground_truth\n                    }\n                }\n            )\n            portability_item = portability_inputs[i]\n            prompts = portability_item['prompt']\n            ground_truth = portability_item['ground_truth']\n            request['portability'].update(\n                {\n                    \"portability\": {\n                        f'prompt': prompts,\n                        f'ground_truth': ground_truth\n                    }\n                }\n            )    \n    print(requests[0])\n    editor = BaseEditor.from_hparams(hparams)\n    print(\"begin editing\")\n    metrics, edited_model, _ = editor.edit_requests(\n        requests=requests,\n        keep_original_weight=True,\n    )\n    try:\n        if not os.path.exists(args.metrics_save_dir):\n            os.makedirs(args.metrics_save_dir)\n    except Exception as e:\n            print(f\"Failed to create directory: {e}\")\n    json.dump(metrics, open(os.path.join(args.metrics_save_dir, \n                                         f'{args.editing_method}_{args.data_type}{((\"_inst_id_\" + args.inst_index) if args.inst_index is not None else \"\")}_results.json'), \n                            'w'), indent=4)",
+      "supported_methods": [
+        "MEMIT",
+        "ROME",
+        "SERAC",
+        "LoRA",
+        "IKE",
+        "MEND",
+        "KN",
+        "FT"
+      ],
+      "supported_datasets": [
+        "w",
+        "ZsreDataset"
+      ],
+      "supported_models": [],
+      "required_parameters": [
+        "data_type",
+        "editing_method",
+        "data_dir",
+        "ds_size",
+        "data",
+        "hparams_dir",
+        "inst_index"
+      ],
+      "optional_parameters": {
+        "metrics_save_dir": "./output",
+        "ds_size": 10000
+      }
+    },
+    "conceptedit_transform_check": {
+      "name": "conceptedit_transform_check",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\conceptedit_transform_check.py",
+      "description": "Prediction sentence: [PREDICTION] Sentence A: [TARGET]. Sentence B: [GROUND]. Check the prediction sentence and Give a score from -1 to 1: Score 1: close meaning to sentence A Score 0: neither relevant to A nor B Score -1: close meaning to sentence B Output format is {Score:{}, Reason:{}}",
+      "supported_methods": [
+        "FT"
+      ],
+      "supported_datasets": [],
+      "supported_models": [
+        ") as f:\n    result = json.load(f)\n    \noutputs = []\nresult = [i[",
+        "llama",
+        "),indent=4)\n\n\n\nimport random\na = random.sample(outputs,5)\na = [i["
+      ],
+      "required_parameters": [],
+      "optional_parameters": {
+        "method": "FT",
+        "model": "llama2chat",
+        "module": "intra"
+      }
+    },
+    "train_DINM_for_NLPCC": {
+      "name": "train_DINM_for_NLPCC",
+      "file_path": "E:\\ContiAI\\EasyEdit\\examples\\train_DINM_for_NLPCC.py",
+      "description": "DINM\n    if args.editing_method == 'DINM':\n        editing_hparams = DINMHyperParams\n    else:\n        raise NotImplementedError\n    output_dir = f'{args.results_save_dir}/detoxify_train.json'\n    hparams = editing_hparams.from_hparams(args.hparams_dir)\n    editor = SafetyEditor.from_hparams(hparams)",
+      "supported_methods": [
+        "SafetyEdit",
+        "DINM"
+      ],
+      "supported_datasets": [
+        "Safety",
+        "SafetyDataset",
+        "Training is done"
+      ],
+      "supported_models": [
+        "llama",
+        "llama-7b"
+      ],
+      "required_parameters": [
+        "hparams_dir",
+        "editing_method",
+        "data_dir",
+        "results_save_dir"
+      ],
+      "optional_parameters": {
+        "NLPCC": true,
+        "editing_method": "DINM",
+        "data_dir": "./data"
+      }
+    }
+  }
+}
